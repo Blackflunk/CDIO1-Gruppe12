@@ -1,5 +1,6 @@
 package funktionality;
 
-public class Datalogic {
+public class Datalogic implements IDatalogic {
+	
 
 }
