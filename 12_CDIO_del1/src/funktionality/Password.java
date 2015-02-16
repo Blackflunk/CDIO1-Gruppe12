@@ -12,6 +12,8 @@ public class Password {
 	}
 
 	public static void password(){
+		
+		//initialiserer variable
 		String SmaaBogstaver = "abcdefghijklmnopqrstuvwxyz";
 		String StoreBogstaver = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		String TilladteTegn = ".-_+!?=";
@@ -22,10 +24,18 @@ public class Password {
 		Random StringRNG = new Random();
 		int counter[] = {0,0,0,0,0}, pwdcount = 0;
 		int randomtal = 0, case0 = 0, case1 = 0, case2 = 0, case3 = 0;
+		
+		//løkken sørger for der er 6 characters i password
 		while(pwdcount < 6){
-
+			
+			//Finder et tilfældigt tal mellem 0 og 3 til switch-casen
 			randomtal = StringRNG.nextInt(4);
-
+			/* 
+			 * Her sørger Switch-casen for der er mindst 1 af hver af de krævede
+			 * tegn, herudover er det tilfældigt hvor mange af hver der kommer, men
+			 * stadig ikke mere end 6 i alt.
+			 */
+			
 			switch(randomtal){
 			case 0: counter[0]++;
 			if (counter[0] < 2) {
@@ -94,10 +104,13 @@ public class Password {
 			}
 		}
 
+		//Indsætter de chars der udgør kodeordet til String-variablen password
 		for (int i = 0;i < PwD.size();i++){
 			PwDchar = PwD.get(i);
 			password += String.copyValueOf(PwDchar);
 		}
+		
+		//Her skal der returnes password til databasen når den er færdiglavet
 		System.out.println(password);
 	}
 }
