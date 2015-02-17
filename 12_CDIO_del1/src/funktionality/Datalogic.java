@@ -50,13 +50,12 @@ public class Datalogic implements IDatalogic{
 		return false;
 		
 	}
-
+	//Laver nyt object, tilføjer OprId og Password
 	@Override
 	public String createOperator(OperatorDTO opr) throws DALException {
-		// TODO Auto-generated method stub
 		opr.setOprId(GenerateoprID());
 		opr.setPassword(GeneratePassword());
-		operatorList.add(opr.getOprId(),opr.getOprNavn(),opr.getIni(),opr.getCpr(), opr.getAdmin(), opr.getPassword());
+		operatorList.add(new OperatorDTO(opr.getOprId(),opr.getOprNavn(),opr.getIni(),opr.getCpr(), opr.getAdmin(), opr.getPassword()));
 		return opr.getPassword();
 		
 	}
@@ -66,7 +65,7 @@ public class Datalogic implements IDatalogic{
 		// TODO Auto-generated method stub
 		
 	}
-	
+	//Midlertidig Generator til oprID indtil der bestemmes hvordan vi håndterer slet operatør
 	public int GenerateoprID() {
 
 		int oprId = 0, Idcounter = 11;
