@@ -7,13 +7,15 @@ public class OperatorDTO {
 	private String ini;
 	private String cpr;
 	private boolean admin;
+	private String Password;
 	
-	public OperatorDTO(int oprId, String oprNavn, String ini, String cpr, boolean admin){
+	public OperatorDTO(int oprId, String oprNavn, String ini, String cpr, boolean admin, String Password){
 		this.admin = admin;
 		this.cpr = cpr;
 		this.ini = ini;
 		this.oprNavn = oprNavn;
 		this.oprId = oprId;
+		this.Password = Password;
 	}
 	
 	public int getOprId() {
@@ -41,10 +43,16 @@ public class OperatorDTO {
 		this.cpr = cpr;
 	}
 	public String getPassword() {
-		return password;
+		return Password;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassword(String Password) {
+		this.Password = Password;
 	}
-	String password;
+	public boolean getAdmin() {
+		return admin;
+	}
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
+
 }

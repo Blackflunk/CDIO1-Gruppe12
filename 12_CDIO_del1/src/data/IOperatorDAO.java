@@ -1,13 +1,25 @@
 package data;
 
-	public interface IOperatorDAO {
+import java.util.List;
 
-//String OperatorDTO getOperatoer(int oprId) throws DALException;
-//
-//List<OperatoerDTO> getOperatoerList() throws DALException;
-//
-//void createOperatoer(OperatoerDTO opr) throws DALException;
-//
-//void updateOperatoer(OperatoerDTO opr) throws DALException;
+public interface IOperatorDAO {
+/*
+	String OperatorDTO getOperator(int oprId) throws DALException;
 
+	ArrayList<OperatorDTO> getOperatorList() throws DALException;
+
+	String createOperator(OperatorDTO opr) throws DALException;
+
+	void updateOperator(OperatorDTO opr) throws DALException;
+	
+	public class DALException extends Exception {
+		
+		public DALException(String input) {
+			System.out.println("Du har lavet en fejl Klaphat");
+			System.out.println(input);
+		}
+	}
+*/
 }
+
+
