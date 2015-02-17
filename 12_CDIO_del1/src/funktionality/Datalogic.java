@@ -1,41 +1,54 @@
 package funktionality;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-import data.IOperatorDAO;
 import data.OperatorDTO;
 
-public class Datalogic implements IOperatorDAO {
-	
-	
-	
-	
-	
-	
-	
-	/*
-	 * Har udkommenteret alt vi sad og roddede med idag indtil pigerne har 
-	 * vist os deres vidunder :D woot woot, så vi ikke sidder og laver dobbelt
-	 * arbejde i funktionalitetslaget.
-	 * 
-	 */
-	/*
-	private ArrayList<OperatorDTO> OperatorList = new ArrayList<OperatorDTO>();
-	
-	
 
-	@Override
-	public void getOperator(int oprId) throws DALException {
-		// TODO Auto-generated method stub
+public class Datalogic implements IDatalogic{
+	private List<OperatorDTO> operatorList = new ArrayList<OperatorDTO>();
+	
+	public Datalogic()
+	{
+		operatorList.add(new OperatorDTO(GenerateoprID(), "sysadmin", "sysadm", "000000-0000", true, GeneratePassword()));
 		
 	}
-
+	
+	public OperatorDTO getOperator(int oprId) throws DALException
+	{
+		for(int i = 0; i < operatorList.size() ;i++ )
+		{
+			if(operatorList.get(i).getOprId()== oprId){
+				return operatorList.get(i);
+			}
+			
+		}
+		throw new DALException(oprId);
+	}
 	@Override
-	public ArrayList<OperatorDTO> getOperatorList()	throws DALException {
+	public List<OperatorDTO> getOperators() {
 		// TODO Auto-generated method stub
-		return OperatorList;
+		return operatorList;
+	}
+
+	
+	// Tilføjer operatør
+	public void addToList(OperatorDTO addInput)
+	{
+		operatorList.add(addInput);
+		
+	}
+	// Slette Operatør
+	public boolean deleteFromList(int index)
+	{
+		
+		for (OperatorDTO o : operatorList) {
+			if (o.getOprId()==index){
+				operatorList.remove(o);
+				return true;
+			}
+		}
+		return false;
+		
 	}
 
 	@Override
@@ -43,7 +56,7 @@ public class Datalogic implements IOperatorDAO {
 		// TODO Auto-generated method stub
 		opr.setOprId(GenerateoprID());
 		opr.setPassword(GeneratePassword());
-		OperatorList.add(opr.getOprId(),opr.getOprNavn(),opr.getIni(),opr.getCpr(), opr.getAdmin(), opr.getPassword());
+		operatorList.add(opr.getOprId(),opr.getOprNavn(),opr.getIni(),opr.getCpr(), opr.getAdmin(), opr.getPassword());
 		return opr.getPassword();
 		
 	}
@@ -53,24 +66,15 @@ public class Datalogic implements IOperatorDAO {
 		// TODO Auto-generated method stub
 		
 	}
-	String OperatorDTO getOperator(int oprId) throws DALException {
-		
-	}
-
-	data.ArrayList<data.OperatorDTO> getOperatorList() throws DALException {
-
-	}
-
-	void updateOperator(OperatorDTO opr) throws DALException;
 	
 	public int GenerateoprID() {
 
 		int oprId = 0, Idcounter = 11;
-		int ListLength = OperatorList.size();
+		int ListLength = operatorList.size();
 		OperatorDTO TempObject;
 
 		for(int i = 0;i < ListLength;i++) {
-			TempObject = OperatorList.get(i);
+			TempObject = operatorList.get(i);
 			if(ListLength < 88) {
 				return ListLength + 11;
 			}
@@ -85,8 +89,8 @@ public class Datalogic implements IOperatorDAO {
 				return oprId;
 			}
 		}
+		return -1;
 	}
-	*/
 	public String GeneratePassword() {
 
 		//initialiserer variable
@@ -189,5 +193,7 @@ public class Datalogic implements IOperatorDAO {
 		//Her skal der returnes password til databasen når den er færdiglavet
 		return password;
 	}
+
+
 
 }
