@@ -1,12 +1,14 @@
 package boundary;
 
+import java.io.IOException;
+
 public interface IUI {
 	// Inden logget ind.
 	void endMessage();
 
 	//Oprettelse af bruger
-	String getUserName();
-	String cprNumber();
+	String getUserName() throws IOException;
+	String cprNumber() throws IOException;
 	void showPassword(String password);
 	
 	//Fejlbeskeder
@@ -18,23 +20,23 @@ public interface IUI {
 	void loginFailedMessage();
 	void logoutSuccesMessage();
 	void logoutFailedMessage();
-	void createUserFailedMessage();
+	void createUserFailedMessage(String CPR);
 	void createUserSuccesMessage();
 	
 	//Vægtprogram
-	int insertWeight();
-	int insertTara();
-	void showResult();
-	void showWeightMessage();
+	int insertWeight() throws IOException;
+	int insertTara() throws IOException;
+	void showResult(int gross);
+	void showWeightMessage(String name);
 	
 	//Login valgmuligheder
-	String changeName();
-	String changePassword();
+	String changeName() throws IOException;
+	String changePassword() throws IOException;
 
 	//Adminstrations menu
 	void showUserList(int[] IDList,String[] nameList);
-	int deleteUser();
-	int makeUserAdmin();
+	int deleteUser() throws IOException;
+	int makeUserAdmin() throws IOException;
 
 	//Menuer
 	int showUserMenu();
