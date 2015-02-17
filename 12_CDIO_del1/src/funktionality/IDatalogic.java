@@ -10,4 +10,10 @@ public interface IDatalogic {
 	public boolean deleteFromList(int index);
 	void updateOperator(OperatorDTO opr) throws DALException;
 	String createOperator(OperatorDTO opr) throws DALException;
+	
+	public class DALException extends Exception {
+		public DALException(int oprID) {
+			System.out.println("ID der fejlede" + oprID);
+		}
+	}
 }
