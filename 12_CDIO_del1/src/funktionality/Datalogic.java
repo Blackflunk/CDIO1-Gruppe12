@@ -1,6 +1,6 @@
 package funktionality;
 import java.util.*;
-
+import exceptions.DALException;
 import data.OperatorDTO;
 
 
@@ -31,13 +31,13 @@ public class Datalogic implements IDatalogic{
 	}
 
 	
-	// Tilføjer operatør
+	// Tilfï¿½jer operatï¿½r
 	public void addToList(OperatorDTO addInput)
 	{
 		operatorList.add(addInput);
 		
 	}
-	// Slette Operatør
+	// Slette Operatï¿½r
 	public boolean deleteFromList(int index)
 	{
 		
@@ -50,7 +50,7 @@ public class Datalogic implements IDatalogic{
 		return false;
 		
 	}
-	//Laver nyt object, tilføjer OprId og Password
+	//Laver nyt object, tilfï¿½jer OprId og Password
 	@Override
 	public String createOperator(OperatorDTO opr) throws DALException {
 		opr.setOprId(GenerateoprID());
@@ -65,7 +65,7 @@ public class Datalogic implements IDatalogic{
 		// TODO Auto-generated method stub
 		
 	}
-	//Midlertidig Generator til oprID indtil der bestemmes hvordan vi håndterer slet operatør
+	//Midlertidig Generator til oprID indtil der bestemmes hvordan vi hï¿½ndterer slet operatï¿½r
 	public int GenerateoprID() {
 
 		int oprId = 0, Idcounter = 11;
@@ -104,14 +104,14 @@ public class Datalogic implements IDatalogic{
 		int counter[] = {0,0,0,0,0}, pwdcount = 0;
 		int randomtal = 0, case0 = 0, case1 = 0, case2 = 0, case3 = 0;
 
-		//løkken sørger for der er 10 characters i password
+		//lï¿½kken sï¿½rger for der er 10 characters i password
 		while(pwdcount < 10){
 
-			//Finder et tilfældigt tal mellem 0 og 3 til switch-casen
+			//Finder et tilfï¿½ldigt tal mellem 0 og 3 til switch-casen
 			randomtal = StringRNG.nextInt(4);
 			/* 
-			 * Her sørger Switch-casen for der er mindst 1 af hver af de krævede
-			 * tegn, herudover er det tilfældigt hvor mange af hver der kommer, men
+			 * Her sï¿½rger Switch-casen for der er mindst 1 af hver af de krï¿½vede
+			 * tegn, herudover er det tilfï¿½ldigt hvor mange af hver der kommer, men
 			 * stadig ikke mere end 6 i alt.
 			 */
 
@@ -183,13 +183,13 @@ public class Datalogic implements IDatalogic{
 			}
 		}
 
-		//Indsætter de chars der udgør kodeordet til String-variablen password
+		//Indsï¿½tter de chars der udgï¿½r kodeordet til String-variablen password
 		for (int i = 0;i < PwD.size();i++){
 			PwDchar = PwD.get(i);
 			password += String.copyValueOf(PwDchar);
 		}
 
-		//Her skal der returnes password til databasen når den er færdiglavet
+		//Her skal der returnes password til databasen nï¿½r den er fï¿½rdiglavet
 		return password;
 	}
 

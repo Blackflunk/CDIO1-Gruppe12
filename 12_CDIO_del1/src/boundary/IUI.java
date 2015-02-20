@@ -2,6 +2,8 @@ package boundary;
 
 import java.io.IOException;
 
+import exceptions.UnknownInputException;
+
 public interface IUI {
 	// Inden logget ind.
 	void endMessage();
@@ -39,10 +41,10 @@ public interface IUI {
 	int makeUserAdmin() throws IOException;
 
 	//Menuer
-	int showUserMenu();
-	int showManageMenu();
-	int showAdminMenu();
-	int showMainMenu();
+	int showUserMenu(String username) throws UnknownInputException, IOException;
+	int showManageMenu(String username) throws UnknownInputException, IOException;
+	int showAdminMenu(String username) throws UnknownInputException, IOException;
+	int showMainMenu() throws IOException, UnknownInputException;
 	
 	
 }

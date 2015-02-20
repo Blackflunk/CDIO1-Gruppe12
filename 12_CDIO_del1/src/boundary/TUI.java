@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import exceptions.UnknownInputException;
+
 public class TUI implements IUI{
 	BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
 	
@@ -185,27 +187,63 @@ public class TUI implements IUI{
 	}
 
 	@Override
-	public int showUserMenu() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int showUserMenu(String username) throws UnknownInputException, IOException {
+		System.out.println("Logged in as: "+username);
+		System.out.println("Usermenu \n");
+		System.out.println("1. Account management \n"+"2. Acces weight \n"+"3. Log out");
+		String input = inFromUser.readLine();
+		switch(input) {
+		case "1": return 1;
+		case "2": return 2;
+		case "3": return 3;
+		default: throw new UnknownInputException("Not a valid Input");
+		}
 	}
 
 	@Override
-	public int showManageMenu() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int showManageMenu(String username) throws IOException, UnknownInputException {
+		System.out.println("Logged in as: "+username);
+		System.out.println("Account management \n");
+		System.out.println("1. Change name \n"+"2. change password \n"+"3. back");
+		String input = inFromUser.readLine();
+		switch(input) {
+		case "1": return 1;
+		case "2": return 2;
+		case "3": return 3;
+		default: throw new UnknownInputException("Not a valid Input");
+		}
 	}
 
 	@Override
-	public int showAdminMenu() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int showAdminMenu(String username) throws IOException, UnknownInputException{
+		System.out.println("Logged in as: "+username);
+		System.out.println("User options \n");
+		System.out.println("1. Account management \n"+"2. Acces weight \n"+"3. Log out \n");
+		System.out.println("Admin options \n");
+		System.out.println("4. Show list of all users \n"+"5. Delete user"+"6. Make user admin");
+		String input = inFromUser.readLine();
+		switch(input) {
+		case "1": return 1;
+		case "2": return 2;
+		case "3": return 3;
+		case "4": return 4;
+		case "5": return 5;
+		case "6": return 6;
+		default: throw new UnknownInputException("Not a valid Input");
+		}
 	}
 
 	@Override
-	public int showMainMenu() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int showMainMenu() throws IOException, UnknownInputException {
+		System.out.println("Main menu \n");
+		System.out.println("1. Create Account \n"+"2. Log in to excisting account \n"+"3. Exit program");
+		String input = inFromUser.readLine();
+		switch(input) {
+		case "1": return 1;
+		case "2": return 2;
+		case "3": return 3;
+		default: throw new UnknownInputException("Not a valid Input");
+		}
 	}
 
 }
