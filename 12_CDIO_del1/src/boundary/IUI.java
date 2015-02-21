@@ -5,15 +5,20 @@ import java.io.IOException;
 import exceptions.UnknownInputException;
 
 public interface IUI {
-	// Inden logget ind.
+	//Termination of program
 	void endMessage();
 
-	//Oprettelse af bruger
+	//Creation of user
 	String getUserName() throws IOException;
 	String cprNumber() throws IOException;
 	void showPassword(String password);
 	
-	//Fejlbeskeder
+	// Enter
+	String enterUserName() throws IOException;
+	String enterCPR() throws IOException;
+	String enterPassword() throws IOException;
+	
+	//Error messages
 	void changeNameFailed();
 	void changeNameSucces();
 	void changePasswordFailed();
@@ -24,27 +29,33 @@ public interface IUI {
 	void logoutFailedMessage();
 	void createUserFailedMessage(String CPR);
 	void createUserSuccesMessage();
+	void showInputFailure();
+	void showNoInput();
 	
-	//Vægtprogram
+	//Weight program
 	int insertWeight() throws IOException;
 	int insertTara() throws IOException;
 	void showResult(int gross);
 	void showWeightMessage(String name);
 	
-	//Login valgmuligheder
+	//Login possibilities
 	String changeName() throws IOException;
 	String changePassword() throws IOException;
 
-	//Adminstrations menu
+	//Administration menu
 	void showUserList(int[] IDList,String[] nameList);
 	int deleteUser() throws IOException;
 	int makeUserAdmin() throws IOException;
 
-	//Menuer
-	int showUserMenu(String username) throws UnknownInputException, IOException;
-	int showManageMenu(String username) throws UnknownInputException, IOException;
-	int showAdminMenu(String username) throws UnknownInputException, IOException;
-	int showMainMenu() throws IOException, UnknownInputException;
+	//Menus
+	int getUserMenu() throws UnknownInputException, IOException;
+	int getManageMenu() throws UnknownInputException, IOException;
+	int getAdminMenu() throws UnknownInputException, IOException;
+	int getMainMenu() throws IOException, UnknownInputException;
+	void showMainMenu();
+	void showUserMenu(String username);
+	void showAdminMenu(String username);
+	void showManageMenu(String username);
 	
 	
 }

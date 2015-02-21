@@ -7,11 +7,14 @@ import java.io.InputStreamReader;
 import exceptions.UnknownInputException;
 
 public class TUI implements IUI{
-	BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
+	private BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
 	
 	@Override
 	public void endMessage() {
+		System.out.println("#######################################");
 		System.out.println("You have terminated the program. ");
+		System.out.println("Bye bye");
+		System.out.println("#######################################");
 		
 	}
 
@@ -20,10 +23,29 @@ public class TUI implements IUI{
 		System.out.println("Enter your full name: ");
 		return inFromUser.readLine();
 	}
+	@Override
+	public String enterUserName() throws IOException{
+		System.out.println("Enter your full name");
+		return inFromUser.readLine();
+	}
+	@Override 
+	public String enterCPR() throws IOException {
+		System.out.println("Enter your CPR");
+		return inFromUser.readLine();
+	}
+	@Override 
+	public String enterPassword() throws IOException {
+		System.out.println("Enter your password");
+		return inFromUser.readLine();
+	}
+	@Override
+	public void showNoInput() {
+		System.out.println("No input detected");
+	}
 
 	@Override
 	public String cprNumber() throws IOException {
-		System.out.println("Enter CPR-Number (XXXXXX-XXXX): ");
+		System.out.println("Enter your CPR-Number (format: XXXXXX-XXXX): ");
 		return inFromUser.readLine();
 	}
 
@@ -185,12 +207,13 @@ public class TUI implements IUI{
 		}
 		return message;	
 	}
+	
+	
+	
+	// Menus
 
 	@Override
-	public int showUserMenu(String username) throws UnknownInputException, IOException {
-		System.out.println("Logged in as: "+username);
-		System.out.println("Usermenu \n");
-		System.out.println("1. Account management \n"+"2. Acces weight \n"+"3. Log out");
+	public int getUserMenu() throws UnknownInputException, IOException {
 		String input = inFromUser.readLine();
 		switch(input) {
 		case "1": return 1;
@@ -201,10 +224,7 @@ public class TUI implements IUI{
 	}
 
 	@Override
-	public int showManageMenu(String username) throws IOException, UnknownInputException {
-		System.out.println("Logged in as: "+username);
-		System.out.println("Account management \n");
-		System.out.println("1. Change name \n"+"2. change password \n"+"3. back");
+	public int getManageMenu() throws IOException, UnknownInputException {
 		String input = inFromUser.readLine();
 		switch(input) {
 		case "1": return 1;
@@ -215,12 +235,7 @@ public class TUI implements IUI{
 	}
 
 	@Override
-	public int showAdminMenu(String username) throws IOException, UnknownInputException{
-		System.out.println("Logged in as: "+username);
-		System.out.println("User options \n");
-		System.out.println("1. Account management \n"+"2. Acces weight \n"+"3. Log out \n");
-		System.out.println("Admin options \n");
-		System.out.println("4. Show list of all users \n"+"5. Delete user"+"6. Make user admin");
+	public int getAdminMenu() throws IOException, UnknownInputException{
 		String input = inFromUser.readLine();
 		switch(input) {
 		case "1": return 1;
@@ -234,9 +249,7 @@ public class TUI implements IUI{
 	}
 
 	@Override
-	public int showMainMenu() throws IOException, UnknownInputException {
-		System.out.println("Main menu \n");
-		System.out.println("1. Create Account \n"+"2. Log in to excisting account \n"+"3. Exit program");
+	public int getMainMenu() throws IOException, UnknownInputException {
 		String input = inFromUser.readLine();
 		switch(input) {
 		case "1": return 1;
@@ -244,6 +257,51 @@ public class TUI implements IUI{
 		case "3": return 3;
 		default: throw new UnknownInputException("Not a valid Input");
 		}
+	}
+	
+	@Override
+	public void showMainMenu() {
+		System.out.println("#######################################");
+		System.out.println("Main menu \n");
+		System.out.println("1. Create Account \n"+"2. Log in to excisting account \n"+"3. Exit program");
+		System.out.println("#######################################");
+	}
+	
+	@Override
+	public void showAdminMenu(String username) {
+		System.out.println("#######################################");
+		System.out.println("Logged in as: "+username);
+		System.out.println("#######################################");
+		System.out.println("User options \n");
+		System.out.println("1. Account management \n"+"2. Acces weight \n"+"3. Log out \n");
+		System.out.println("Admin options \n");
+		System.out.println("4. Show list of all users \n"+"5. Delete user"+"6. Make user admin");
+		System.out.println("#######################################");
+	}
+	
+	@Override
+	public void showManageMenu(String username) {
+		System.out.println("#######################################");
+		System.out.println("Logged in as: "+username);
+		System.out.println("#######################################");
+		System.out.println("Account management \n");
+		System.out.println("1. Change name \n"+"2. change password \n"+"3. back");
+		System.out.println("#######################################");
+	}
+	
+	@Override
+	public void showUserMenu(String username) {
+		System.out.println("#######################################");
+		System.out.println("Logged in as: "+username);
+		System.out.println("#######################################");
+		System.out.println("Usermenu \n");
+		System.out.println("1. Account management \n"+"2. Acces weight \n"+"3. Log out");
+		System.out.println("#######################################");
+	}
+	
+	public void showInputFailure() {
+		System.out.println("Not a recognized input");
+		System.out.println("Please try again:");
 	}
 
 }

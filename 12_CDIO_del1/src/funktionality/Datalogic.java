@@ -31,7 +31,7 @@ public class Datalogic implements IDatalogic{
 	}
 
 	
-	// Tilf�jer operat�r
+	// Tilf�jer operatør
 	public void addToList(OperatorDTO addInput)
 	{
 		operatorList.add(addInput);
