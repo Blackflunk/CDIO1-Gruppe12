@@ -6,11 +6,12 @@ public class OperatorController {
 	private TUI TUI;
 	private boolean admin;
 	private String username;
-	
+	private WeightController WC;
 	
 	public OperatorController() {
 		TUI = new TUI();
 		IC = new InputController(TUI);
+		WC = new WeightController(TUI);
 	}
 	public void init() {
 		startTCPClient();
@@ -23,7 +24,7 @@ public class OperatorController {
 	}
 	
 	public void startTCPClient() {
-		
+		runMainMenu();
 	}
 	
 	public void terminateTCPClient() {
@@ -31,14 +32,19 @@ public class OperatorController {
 	}
 	
 	public void userLogIn(){
-		String CPR = IC.getCPR();
-		String password = IC.getPassword();
-		// try: password validation 
+		if (IC.validateUser()) {
 		// CPR to username funktion
 		// check for admin
 		// runUserMenu or runAdminMenu
-		
+		}
 	}
+	public void createAccount() {
+		String CPR = IC.getCPR();
+		String name = IC.getUserName();
+		// create account in database
+		TUI.showPassword("password");
+	}
+	
 	public void runManageMenu() {
 		boolean run=true;
 		while(run){
@@ -56,7 +62,7 @@ public class OperatorController {
 		while(run){
 		TUI.showMainMenu();
 		switch(IC.getMainMenu()) {
-		case 1: // Create account
+		case 1: createAccount();
 		case 2: userLogIn();
 				break;
 		case 3: run=false;
@@ -66,12 +72,17 @@ public class OperatorController {
 	
 	public void runUserMenu() {
 		boolean run=true;
+		TUI.loginSuccesMessage();
 		while(run){
 		TUI.showUserMenu(username);
 		switch(IC.getUserMenu()) {
-		case 1: // Account Management
-		case 2: // Acces weight
-		case 3: // log out
+		case 1: runManageMenu();
+				break;
+		case 2: WC.runWeight(username);
+				break;
+		case 3: run=false;
+				TUI.logoutSuccesMessage();
+				break;
 		}}
 	}
 	public void runAdminMenu() {
@@ -79,10 +90,13 @@ public class OperatorController {
 		while(run){
 		TUI.showAdminMenu(username);
 		switch(IC.getAdminMenu()) {
-		case 1: // Account Management
-		case 2: // Acces weight
-		case 3: // log out
-			// 4. Show list of all users \n"+"5. Delete user"+"6. Make user admin
+		case 1: runManageMenu();
+				break;
+		case 2: WC.runWeight(username);
+				break;
+		case 3: run=false;
+				TUI.logoutSuccesMessage();
+				break;
 		case 4: // showlist
 		case 5:	// delete user
 		case 6:	// make user admin

@@ -304,4 +304,15 @@ public class TUI implements IUI{
 		System.out.println("Please try again:");
 	}
 
+	@Override
+	public boolean tryAgain() throws UnknownInputException, IOException {
+		System.out.println("Run weight again? Y/N");
+		String input = inFromUser.readLine();
+		switch(input) {
+		case "Y": return true;
+		case "N": return false;
+		default: throw new UnknownInputException("Not a valid Input");
+		}
+	}
+
 }

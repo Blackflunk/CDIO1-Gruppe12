@@ -37,6 +37,7 @@ public interface IUI {
 	int insertTara() throws IOException;
 	void showResult(int gross);
 	void showWeightMessage(String name);
+	boolean tryAgain() throws UnknownInputException, IOException;
 	
 	//Login possibilities
 	String changeName() throws IOException;

@@ -40,6 +40,13 @@ public class InputController {
 		}
 		return option;
 	}
+	public boolean validateUser() {
+		String CPR = getCPR();
+		String password = getPassword();
+		// try: validate
+		// catch wrongpasswordcombiexception
+		return true;
+	}
 	
 	public int getMainMenu() {
 		int option=-1;

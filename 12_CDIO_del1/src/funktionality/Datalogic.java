@@ -1,15 +1,17 @@
 package funktionality;
 import java.util.*;
+
 import exceptions.DALException;
+import data.IOperatorDTO;
 import data.OperatorDTO;
 
 
-public class Datalogic implements IDatalogic{
+public class Datalogic implements IOperatorDTO{
 	private List<OperatorDTO> operatorList = new ArrayList<OperatorDTO>();
 	
 	public Datalogic()
 	{
-		operatorList.add(new OperatorDTO(GenerateoprID(), "sysadmin", "sysadm", "000000-0000", true, GeneratePassword()));
+		operatorList.add(new OperatorDTO(generateOprID(), "sysadmin", "sysadm", "000000-0000", true, generatePassword()));
 		
 	}
 	
@@ -53,8 +55,8 @@ public class Datalogic implements IDatalogic{
 	//Laver nyt object, tilf�jer OprId og Password
 	@Override
 	public String createOperator(OperatorDTO opr) throws DALException {
-		opr.setOprId(GenerateoprID());
-		opr.setPassword(GeneratePassword());
+		opr.setOprId(generateOprID());
+		opr.setPassword(generatePassword());
 		operatorList.add(new OperatorDTO(opr.getOprId(),opr.getOprNavn(),opr.getIni(),opr.getCpr(), opr.getAdmin(), opr.getPassword()));
 		return opr.getPassword();
 		
@@ -66,7 +68,7 @@ public class Datalogic implements IDatalogic{
 		
 	}
 	//Midlertidig Generator til oprID indtil der bestemmes hvordan vi h�ndterer slet operat�r
-	public int GenerateoprID() {
+	public int generateOprID() {
 
 		int oprId = 0, Idcounter = 11;
 		int ListLength = operatorList.size();
@@ -90,7 +92,7 @@ public class Datalogic implements IDatalogic{
 		}
 		return -1;
 	}
-	public String GeneratePassword() {
+	public String generatePassword() {
 
 		//initialiserer variable
 		String SmaaBogstaver = "abcdefghijklmnopqrstuvwxyz";
@@ -191,6 +193,12 @@ public class Datalogic implements IDatalogic{
 
 		//Her skal der returnes password til databasen n�r den er f�rdiglavet
 		return password;
+	}
+
+	@Override
+	public ArrayList<OperatorDTO> getOperatorList() throws DALException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
