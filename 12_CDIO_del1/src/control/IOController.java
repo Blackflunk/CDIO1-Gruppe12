@@ -3,10 +3,10 @@ package control;
 import java.io.IOException;
 
 import exceptions.UnknownInputException;
-import boundary.tempTUI;
+import boundary.TUI;
 
-public class tempIOController {
-	private tempTUI TUI = new tempTUI();
+public class IOController {
+	private TUI TUI = new TUI();
 	
 	
 	public String getStringInput() {
@@ -120,5 +120,9 @@ public class tempIOController {
 		case "3": return 3;
 		default: throw new UnknownInputException();
 		}
+	}
+	
+	public void printMessage(String message) {
+		TUI.printMessage(message);
 	}
 }

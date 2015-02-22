@@ -2,12 +2,12 @@ package control;
 
 import java.io.IOException;
 import exceptions.UnknownInputException;
-import boundary.TUI;
+import boundary.oldTUI;
 
 public class InputController {
-	private TUI TUI;
+	private oldTUI TUI;
 	
-	public InputController(TUI TUI){
+	public InputController(oldTUI TUI){
 		this.TUI = TUI;
 	}
 	public String getUserName() {

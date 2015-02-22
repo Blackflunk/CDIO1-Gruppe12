@@ -1,17 +1,18 @@
 package control;
-import boundary.TUI;
+import boundary.oldTUI;
 
 public class OperatorController {
 	private InputController IC;
-	private TUI TUI;
+	private oldTUI TUI;
 	private boolean admin;
 	private String username;
 	private String cpr;
 	private WeightController WC;
 	private DataController DC = new DataController();
+	private IOController IO = new IOController();
 	
 	public OperatorController() {
-		TUI = new TUI();
+		TUI = new oldTUI();
 		IC = new InputController(TUI);
 		WC = new WeightController(TUI);
 	}
@@ -33,7 +34,8 @@ public class OperatorController {
 	}
 	
 	public void userLogIn(){
-		cpr = TUI.enterCPR();
+		
+		cpr = IO.getStringInput();
 		String password = TUI.enterPassword();
 		if (DC.validateUser(cpr, password)) {
 		// check for admin

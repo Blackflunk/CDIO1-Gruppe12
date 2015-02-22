@@ -4,12 +4,12 @@ import java.io.IOException;
 import exceptions.UnknownInputException;
 import funktionality.IWeightLogic;
 import funktionality.WeightLogic;
-import boundary.TUI;
+import boundary.oldTUI;
 public class WeightController implements IWeightLogic {
-	private TUI TUI;
+	private oldTUI TUI;
 	private WeightLogic WL = new WeightLogic();
 	
-	public WeightController(TUI TUI){
+	public WeightController(oldTUI TUI){
 		this.TUI = TUI;
 	}
 	
