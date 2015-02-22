@@ -10,18 +10,18 @@ public class WeightController implements IWeightLogic {
 	private WeightLogic WL = new WeightLogic();
 	
 	public WeightController(TUI TUI){
-		TUI = new TUI();
+		this.TUI = TUI;
 	}
 	
 	public void runWeight(String username) {
 		boolean run=true;
-		while(run){
 		TUI.showWeightMessage(username);
+		while(run){
 		int weight=getWeight();
 		int tara=getTara();
 		int result = WL.useWeight(weight, tara);
 		TUI.showResult(result);
-		if (!runAgain())
+		if (runAgain()==false)
 			run=false;
 		}
 	}
@@ -48,6 +48,7 @@ public class WeightController implements IWeightLogic {
 	}
 	
 	boolean runAgain() {
+		TUI.tryAgainWeight();
 		boolean goagain=false;
 		try {
 			goagain=TUI.tryAgain();

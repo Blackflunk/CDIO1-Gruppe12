@@ -6,7 +6,9 @@ public class OperatorController {
 	private TUI TUI;
 	private boolean admin;
 	private String username;
+	private String cpr;
 	private WeightController WC;
+	private DataController DC = new DataController();
 	
 	public OperatorController() {
 		TUI = new TUI();
@@ -20,11 +22,10 @@ public class OperatorController {
 	}
 	
 	public void runTCPClient() {
-		
+		runMainMenu();
 	}
 	
 	public void startTCPClient() {
-		runMainMenu();
 	}
 	
 	public void terminateTCPClient() {
@@ -32,10 +33,13 @@ public class OperatorController {
 	}
 	
 	public void userLogIn(){
-		if (IC.validateUser()) {
-		// CPR to username funktion
+		cpr = TUI.enterCPR();
+		String password = TUI.enterPassword();
+		if (DC.validateUser(cpr, password)) {
 		// check for admin
 		// runUserMenu or runAdminMenu
+			username = "user";
+			runUserMenu();
 		}
 	}
 	public void createAccount() {
@@ -63,6 +67,7 @@ public class OperatorController {
 		TUI.showMainMenu();
 		switch(IC.getMainMenu()) {
 		case 1: createAccount();
+				break;
 		case 2: userLogIn();
 				break;
 		case 3: run=false;

@@ -151,10 +151,13 @@ public class TUI implements IUI{
 		System.out.println("The weight shows: " + gross);
 		
 	}
+	public void tryAgainWeight() {
+		System.out.println("Run weight again? Y/N");
+	}
 
 	@Override
 	public void showWeightMessage(String name) {
-		System.out.println("Welcome to the IO Interactive weight software, " + name + " Hope you enjoy.");
+		System.out.println("Welcome to the IO Interactive weight software, " + name + " \n Hope you enjoy.");
 	}
 
 	@Override
@@ -306,7 +309,6 @@ public class TUI implements IUI{
 
 	@Override
 	public boolean tryAgain() throws UnknownInputException, IOException {
-		System.out.println("Run weight again? Y/N");
 		String input = inFromUser.readLine();
 		switch(input) {
 		case "Y": return true;
