@@ -33,6 +33,12 @@ public class IOController {
 		
 		return output;	
 	}
+	public void printEndMessage() {
+		TUI.printMessage("#######################################");
+		TUI.printMessage("You have terminated the program. ");
+		TUI.printMessage("Bye bye");
+		TUI.printMessage("#######################################");
+	}
 	
 	public void printMainMenu() {
 		TUI.printMessage("#######################################");
@@ -70,56 +76,86 @@ public class IOController {
 		TUI.printMessage("#######################################");
 	}
 	
-	public boolean getUserSelection() throws UnknownInputException {
+	public boolean getUserSelection() {
 		String input = getStringInput();
+		boolean output =false;
+		try {
 		switch(input) {
-		case "Y": return true;
-		case "N": return false;
+		case "Y": output = true;
+		case "N": output = false;
 		default: throw new UnknownInputException();
+		} } catch (UnknownInputException e) {
+			TUI.printMessage("Couldn't recognize the input");
+			getUserSelection();
 		}
+		return output;
 	}
 	
-	public int getUserMenu() throws UnknownInputException, IOException {
+	public int getUserMenu() {
 		String input = getStringInput();
+		int output = 0;
+		try {
 		switch(input) {
-		case "1": return 1;
-		case "2": return 2;
-		case "3": return 3;
+		case "1": output = 1;
+		case "2": output = 2;
+		case "3": output = 3;
 		default: throw new UnknownInputException();
-		}
+		} } catch (UnknownInputException e) {
+			TUI.printMessage("Couldn't recognize the input");
+			getUserMenu();
+		} 
+		return output;
 	}
 
-	public int getManageMenu() throws IOException, UnknownInputException {
+	public int getManageMenu() {
 		String input = getStringInput();
+		int output = 0;
+		try {
 		switch(input) {
-		case "1": return 1;
-		case "2": return 2;
-		case "3": return 3;
+		case "1": output = 1;
+		case "2": output = 2;
+		case "3": output = 3;
 		default: throw new UnknownInputException();
-		}
+		} } catch (UnknownInputException e) {
+			TUI.printMessage("Couldn't recognize the input");
+			getUserMenu();
+		} 
+		return output;
 	}
 
-	public int getAdminMenu() throws IOException, UnknownInputException{
+	public int getAdminMenu(){
 		String input = getStringInput();
+		int output = 0;
+		try {
 		switch(input) {
-		case "1": return 1;
-		case "2": return 2;
-		case "3": return 3;
-		case "4": return 4;
-		case "5": return 5;
-		case "6": return 6;
+		case "1": output = 1;
+		case "2": output = 2;
+		case "3": output = 3;
+		case "4": output = 4;
+		case "5": output = 5;
+		case "6": output = 6;
 		default: throw new UnknownInputException();
-		}
+		} } catch (UnknownInputException e) {
+			TUI.printMessage("Couldn't recognize the input");
+			getUserMenu();
+		} 
+		return output;
 	}
 
-	public int getMainMenu() throws IOException, UnknownInputException {
+	public int getMainMenu() {
 		String input = getStringInput();
+		int output = 0;
+		try {
 		switch(input) {
-		case "1": return 1;
-		case "2": return 2;
-		case "3": return 3;
+		case "1": output = 1;
+		case "2": output = 2;
+		case "3": output = 3;
 		default: throw new UnknownInputException();
-		}
+		} } catch (UnknownInputException e) {
+			TUI.printMessage("Couldn't recognize the input");
+			getUserMenu();
+		} 
+		return output;
 	}
 	
 	public void printMessage(String message) {

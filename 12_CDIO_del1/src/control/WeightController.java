@@ -1,65 +1,28 @@
 package control;
-import java.io.IOException;
 
-import exceptions.UnknownInputException;
 import funktionality.IWeightLogic;
 import funktionality.WeightLogic;
-import boundary.oldTUI;
 public class WeightController implements IWeightLogic {
-	private oldTUI TUI;
+	private IOController IO;
 	private WeightLogic WL = new WeightLogic();
 	
-	public WeightController(oldTUI TUI){
-		this.TUI = TUI;
+	public WeightController(IOController IO){
+		this.IO = IO;
 	}
 	
 	public void runWeight(String username) {
 		boolean run=true;
-		TUI.showWeightMessage(username);
+		IO.printMessage("Welcome to the IO Interactive weight software, " + username + " \n Hope you enjoy.");
 		while(run){
-		int weight=getWeight();
-		int tara=getTara();
+		IO.printMessage("Enter your weight: ");
+		int weight=IO.getIntInput();
+		IO.printMessage("Enter your tara-value: ");
+		int tara=IO.getIntInput();
 		int result = WL.useWeight(weight, tara);
-		TUI.showResult(result);
-		if (runAgain()==false)
+		IO.printMessage("The weight shows: "+result);
+		if (IO.getUserSelection()==false)
 			run=false;
 		}
-	}
-	
-	public int getWeight() {
-		int option = 0;
-		try{
-			option = TUI.insertWeight();
-		} catch (IOException e) {
-			TUI.showNoInput();
-			getWeight();
-		}
-		return option;
-	}
-	public int getTara() {
-		int option = 0;
-		try{
-			option = TUI.insertTara();
-		} catch (IOException e) {
-			TUI.showNoInput();
-			getTara();
-		}
-		return option;
-	}
-	
-	boolean runAgain() {
-		TUI.tryAgainWeight();
-		boolean goagain=false;
-		try {
-			goagain=TUI.tryAgain();
-		}catch(UnknownInputException e) {
-			TUI.showInputFailure();
-			runAgain();
-		} catch (IOException e) {
-			TUI.showNoInput();
-			runAgain();
-		}
-		return goagain;
 	}
 
 }

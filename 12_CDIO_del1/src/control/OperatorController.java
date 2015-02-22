@@ -1,20 +1,16 @@
 package control;
-import boundary.oldTUI;
 
 public class OperatorController {
-	private InputController IC;
-	private oldTUI TUI;
 	private boolean admin;
 	private String username;
 	private String cpr;
 	private WeightController WC;
 	private DataController DC = new DataController();
-	private IOController IO = new IOController();
+	private IOController IO;
 	
 	public OperatorController() {
-		TUI = new oldTUI();
-		IC = new InputController(TUI);
-		WC = new WeightController(TUI);
+		IO = new IOController();
+		WC = new WeightController(IO);
 	}
 	public void init() {
 		startTCPClient();
@@ -30,32 +26,40 @@ public class OperatorController {
 	}
 	
 	public void terminateTCPClient() {
-		TUI.endMessage();
+		IO.printEndMessage();
 	}
 	
 	public void userLogIn(){
-		
+		boolean run = true;
+		while (run) {
+		IO.printMessage("Enter your CPR-number: ");
 		cpr = IO.getStringInput();
-		String password = TUI.enterPassword();
+		IO.printMessage("Enter your password: ");
+		String password = IO.getStringInput();
 		if (DC.validateUser(cpr, password)) {
 		// check for admin
 		// runUserMenu or runAdminMenu
 			username = "user";
 			runUserMenu();
+		} else if (IO.getUserSelection()==false)
+			run=false;
 		}
 	}
 	public void createAccount() {
-		String CPR = IC.getCPR();
-		String name = IC.getUserName();
+		IO.printMessage("Account creation \n"+"#######################################");
+		IO.printMessage("Enter your CPR-number: ");
+		String CPR = IO.getStringInput();
+		IO.printMessage("Enter your full name: ");
+		String name = IO.getStringInput();
 		// create account in database
-		TUI.showPassword("password");
+		IO.printMessage("password");
 	}
 	
 	public void runManageMenu() {
 		boolean run=true;
 		while(run){
-		TUI.showManageMenu(username);
-		switch(IC.getManageMenu()) {
+		IO.printManageMenu(username);
+		switch(IO.getManageMenu()) {
 		case 1: // Change name
 		case 2: // Change password
 		case 3: run=false;
@@ -66,8 +70,8 @@ public class OperatorController {
 	public void runMainMenu() {
 		boolean run=true;
 		while(run){
-		TUI.showMainMenu();
-		switch(IC.getMainMenu()) {
+		IO.printMainMenu();
+		switch(IO.getMainMenu()) {
 		case 1: createAccount();
 				break;
 		case 2: userLogIn();
@@ -79,30 +83,30 @@ public class OperatorController {
 	
 	public void runUserMenu() {
 		boolean run=true;
-		TUI.loginSuccesMessage();
+		IO.printMessage("You succesfully logged in!");
 		while(run){
-		TUI.showUserMenu(username);
-		switch(IC.getUserMenu()) {
+		IO.printUserMenu(username);
+		switch(IO.getUserMenu()) {
 		case 1: runManageMenu();
 				break;
 		case 2: WC.runWeight(username);
 				break;
 		case 3: run=false;
-				TUI.logoutSuccesMessage();
+				IO.printMessage("You succesfully logged out. \n see you again, "+username);
 				break;
 		}}
 	}
 	public void runAdminMenu() {
 		boolean run=true;
 		while(run){
-		TUI.showAdminMenu(username);
-		switch(IC.getAdminMenu()) {
+		IO.printAdminMenu(username);
+		switch(IO.getAdminMenu()) {
 		case 1: runManageMenu();
 				break;
 		case 2: WC.runWeight(username);
 				break;
 		case 3: run=false;
-				TUI.logoutSuccesMessage();
+				IO.printMessage("You succesfully logged out. \n see you again, "+username);
 				break;
 		case 4: // showlist
 		case 5:	// delete user
