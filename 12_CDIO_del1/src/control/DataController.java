@@ -72,7 +72,7 @@ public class DataController implements IDatalogic{
 	@Override
 	public String convertToName(String CPR) {
 		// TODO Auto-generated method stub
-		return null;
+		return data.getOprName(CPR);
 	}
 	
 	public void createDefaultUsers() {

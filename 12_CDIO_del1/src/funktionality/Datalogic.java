@@ -186,13 +186,10 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 	
 	// Finder navn ud fra CPR-nummer.
 	public String getOprName(String CPR){
-		OperatorDTO operatorDTO;
 		//Finder alle CPR numre i arraylisten for operatørene.
-			for (int i = 0;i<operatorList.size()-1;i++){
-				// Henter og sammenligner nuværende objekt med det givne CPR-nummer.
-				operatorDTO = operatorList.get(i);
-				if(CPR == operatorDTO.getCpr()){
-					return operatorDTO.getOprNavn();
+			for (OperatorDTO o : operatorList) {
+				if(CPR.equals(o.getCpr())) {
+					return o.getOprNavn();
 				}
 			}
 		return "-1";
