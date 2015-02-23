@@ -9,24 +9,23 @@ import data.OperatorDTO;
 public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 	private List<OperatorDTO> operatorList = new ArrayList<OperatorDTO>();
 	OperatorDTO operatorDTO;
-	int tempID = operatorDTO.getOprId();
 	
 	public Datalogic()
 	{
-		operatorList.add(new OperatorDTO(generateOprID(), "sysadmin", "sysadm", "000000-0000", true, generatePassword()));
 		
 	}
 	
-	public OperatorDTO getOperator(int oprId) throws DALException
+	public OperatorDTO getOperator(String CPR) throws DALException
 	{
-		for(int i = 0; i < operatorList.size() ;i++ )
+		for(OperatorDTO o: operatorList)
 		{
-			if(operatorList.get(i).getOprId()== oprId){
-				return operatorList.get(i);
+			if(CPR == CPR){
+				System.out.println("den finder cpr");
+				return o;
 			}
 			
 		}
-		throw new DALException(oprId);
+		throw new DALException(0);
 	}
 	@Override
 	public List<OperatorDTO> getOperators() {
@@ -56,17 +55,32 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 	}
 	//Laver nyt object, tilf�jer OprId og Password
 	@Override
-	public String createOperator(OperatorDTO opr) throws DALException {
-		opr.setOprId(generateOprID());
-		opr.setPassword(generatePassword());
-		operatorList.add(new OperatorDTO(opr.getOprId(),opr.getOprNavn(),opr.getIni(),opr.getCpr(), opr.getAdmin(), opr.getPassword()));
-		return opr.getPassword();
-		
+	public String createOperator(String Navn, String CPR, boolean admin) throws DALException {
+		String password = generatePassword();
+		OperatorDTO opr = new OperatorDTO(generateOprID(),Navn,CreateIni(Navn),CPR, admin, password);
+		operatorList.add(opr);
+		for (OperatorDTO o : operatorList) {
+			System.out.println(o.getCpr() + "  " + o.getPassword());
+		}
+		return password;
 	}
-
+	public String CreateIni(String Navn){
+		char ini[] = Navn.toCharArray();
+		String tempnavn = "";
+		int counter = 0;
+		for(int i = 0;i < ini.length-1;i++){
+			if(counter < 3) {
+				tempnavn += ini[i];
+			}
+			if(ini[i] == ' '){
+				counter = 0;
+			}
+		}
+		return tempnavn;
+	}
 	@Override
 	public void updateOperator(data.OperatorDTO opr) throws DALException {
-		// TODO Auto-generated method stub
+		// Indsaet nyt password
 		
 	}
 	//Midlertidig Generator til oprID indtil der bestemmes hvordan vi h�ndterer slet operat�r
@@ -194,6 +208,7 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 		}
 
 		//Her skal der returnes password til databasen n�r den er f�rdiglavet
+		
 		return password;
 	}
 	
@@ -212,21 +227,28 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 	}
 	
 	// Ser på om brugernavnet matcher password.
-	public boolean validateUser(String username, String password){
-		OperatorDTO operatorDTO;
+	public boolean validateUser(String username, String password) throws DALException{
+		for(OperatorDTO o:operatorList){
+			if(o.getPassword() == password && o.getCpr() == username) {
+				return true;
+			}
+
+		}
+		/*
 		// Tager fat i alle operatørene i vores arraylist.
-		for (int i = 0;i<operatorList.size()-1;i++){
+		for (int i = 0;i < operatorList.size()-1;i++){
 			operatorDTO = operatorList.get(i);
 			// Sammenligner om nuværende objects CPR nummer og password passer sammen.
 				if(username == operatorDTO.getCpr() && password == operatorDTO.getPassword()){
 					return true;
 				}
 			}	
+		*/
 		return false;	
 	}
 	
 	public void sortUserList(){
-		Collections.sort(tempID<T> operatorList);
+		//Collections.sort(List<OperatorDTO.> operatorList);
 	}
 
 	@Override
@@ -248,21 +270,17 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 	}
 
 	@Override
-	public int compareTo(OperatorDTO o) {
-		 	final int BEFORE = -1;
-		    final int EQUAL = 0;
-		    final int AFTER = 1;
-
-		    //this optimization is usually worthwhile, and can
-		    //always be added
-		    if (this.tempID == o.getOprId()) return EQUAL;
-
-		    //primitive numbers follow this form
-		    if (this.tempID < o.getOprId()) return BEFORE;
-		    if (this.tempID > o.getOprId()) return AFTER;
-		    
-		    return EQUAL;
+	public int compareTo(OperatorDTO arg0) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
+	@Override
+	public OperatorDTO getOperator(int oprId) throws DALException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 

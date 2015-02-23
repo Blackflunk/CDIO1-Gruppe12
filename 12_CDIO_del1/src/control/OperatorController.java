@@ -1,5 +1,7 @@
 package control;
 
+import exceptions.DALException;
+
 public class OperatorController {
 	private boolean admin;
 	private String username;
@@ -37,8 +39,9 @@ public class OperatorController {
 		cpr = IO.getStringInput();
 		IO.printMessage("Enter your password: ");
 		String password = IO.getStringInput();
+		try{
 		if (DC.validateUser(cpr, password)) {
-			username = DC.convertToName(cpr);
+			username = cpr;
 			if (DC.isUserAdmin(cpr))
 				runAdminMenu();
 			else
@@ -48,6 +51,9 @@ public class OperatorController {
 			if (IO.getUserSelection()==false)
 			run=false;
 			}
+		}catch(DALException e) {
+			System.out.println("DET VIRKER SGU IKKE");
+		}
 		}
 	}
 	public void createAccount() {
