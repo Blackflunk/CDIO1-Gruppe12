@@ -6,8 +6,10 @@ import data.IOperatorDTO;
 import data.OperatorDTO;
 
 
-public class Datalogic implements IOperatorDTO{
+public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 	private List<OperatorDTO> operatorList = new ArrayList<OperatorDTO>();
+	OperatorDTO operatorDTO;
+	int tempID = operatorDTO.getOprId();
 	
 	public Datalogic()
 	{
@@ -222,6 +224,10 @@ public class Datalogic implements IOperatorDTO{
 			}	
 		return false;	
 	}
+	
+	public void sortUserList(){
+		Collections.sort(tempID<T> operatorList);
+	}
 
 	@Override
 	public ArrayList<OperatorDTO> getOperatorList() throws DALException {
@@ -239,6 +245,23 @@ public class Datalogic implements IOperatorDTO{
 				}
 			}	
 		return false;
+	}
+
+	@Override
+	public int compareTo(OperatorDTO o) {
+		 	final int BEFORE = -1;
+		    final int EQUAL = 0;
+		    final int AFTER = 1;
+
+		    //this optimization is usually worthwhile, and can
+		    //always be added
+		    if (this.tempID == o.getOprId()) return EQUAL;
+
+		    //primitive numbers follow this form
+		    if (this.tempID < o.getOprId()) return BEFORE;
+		    if (this.tempID > o.getOprId()) return AFTER;
+		    
+		    return EQUAL;
 	}
 
 
