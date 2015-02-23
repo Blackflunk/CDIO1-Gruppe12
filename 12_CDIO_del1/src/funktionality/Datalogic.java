@@ -228,6 +228,18 @@ public class Datalogic implements IOperatorDTO{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public boolean isUserAdmin(String CPR) {
+		OperatorDTO operatorDTO;
+		// Tager fat i alle operatørene i vores arraylist.
+		for (int i = 0;i<operatorList.size()-1;i++){
+			operatorDTO = operatorList.get(i);
+				if(CPR == operatorDTO.getCpr()){
+					return operatorDTO.getAdmin();
+				}
+			}	
+		return false;
+	}
 
 
 

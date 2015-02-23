@@ -23,6 +23,7 @@ public class OperatorController {
 	}
 	
 	public void startTCPClient() {
+		DC.createDefaultUsers();
 	}
 	
 	public void terminateTCPClient() {
@@ -37,12 +38,16 @@ public class OperatorController {
 		IO.printMessage("Enter your password: ");
 		String password = IO.getStringInput();
 		if (DC.validateUser(cpr, password)) {
-		// check for admin
-		// runUserMenu or runAdminMenu
-			username = "user";
-			runUserMenu();
-		} else if (IO.getUserSelection()==false)
+			username = DC.convertToName(cpr);
+			if (DC.isUserAdmin(cpr))
+				runAdminMenu();
+			else
+				runUserMenu();
+		} else {
+			IO.printMessage("The CPR-number and the password didn't match. Try again? Y/N");
+			if (IO.getUserSelection()==false)
 			run=false;
+			}
 		}
 	}
 	public void createAccount() {
@@ -51,8 +56,8 @@ public class OperatorController {
 		String CPR = IO.getStringInput();
 		IO.printMessage("Enter your full name: ");
 		String name = IO.getStringInput();
-		// create account in database
-		IO.printMessage("password");
+		String password = createAccount(name, CPR);
+		IO.printMessage("your auto-generated password is: "+password);
 	}
 	
 	public void runManageMenu() {
@@ -113,5 +118,13 @@ public class OperatorController {
 		case 6:	// make user admin
 		}}
 	}
+	
+	public String createAccount(String name, String CPR) {
+		String password = DC.createUser(name, CPR, false);
+		return password;
+	}
+	
+	
+	
 
 }
