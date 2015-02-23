@@ -7,11 +7,12 @@ public class OperatorController {
 	private String username;
 	private String cpr;
 	private WeightController WC;
-	private DataController DC = new DataController();
+	private DataController DC;
 	private IOController IO;
 	
 	public OperatorController() {
 		IO = new IOController();
+		DC = new DataController(IO);
 		WC = new WeightController(IO);
 	}
 	public void init() {
@@ -32,16 +33,15 @@ public class OperatorController {
 		IO.printEndMessage();
 	}
 	
-	public void userLogIn(){
+	public void userLogIn() {
 		boolean run = true;
 		while (run) {
 		IO.printMessage("Enter your CPR-number: ");
 		cpr = IO.getStringInput();
 		IO.printMessage("Enter your password: ");
 		String password = IO.getStringInput();
-		try{
 		if (DC.validateUser(cpr, password)) {
-			username = cpr;
+			username = DC.convertToName(cpr);
 			if (DC.isUserAdmin(cpr))
 				runAdminMenu();
 			else
@@ -51,9 +51,6 @@ public class OperatorController {
 			if (IO.getUserSelection()==false)
 			run=false;
 			}
-		}catch(DALException e) {
-			System.out.println("DET VIRKER SGU IKKE");
-		}
 		}
 	}
 	public void createAccount() {
@@ -119,7 +116,8 @@ public class OperatorController {
 		case 3: run=false;
 				IO.printMessage("You succesfully logged out. \n see you again, "+username);
 				break;
-		case 4: // showlist
+		case 4: IO.printUserList(DC.getUserList());
+				break;
 		case 5:	// delete user
 		case 6:	// make user admin
 		}}

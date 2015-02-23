@@ -5,4 +5,6 @@ public class DALException extends Exception{
 
 		public DALException(int oprID) {
 		}
+		public DALException() {
+		}
 }

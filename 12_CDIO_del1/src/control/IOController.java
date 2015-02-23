@@ -75,6 +75,14 @@ public class IOController {
 		TUI.printMessage("1. Change name \n"+"2. change password \n"+"3. back");
 		TUI.printMessage("#######################################");
 	}
+	public void printUserList(String[][] userlist) {
+		TUI.printMessage("#######################################");
+		TUI.printMessage("List of users");
+		TUI.printMessage("#######################################");
+		for (int i=0; i<userlist.length; i++){
+			TUI.printMessage("ID: "+userlist[i][0]+"\t CPR: "+userlist[i][1]+"\t Name: "+userlist[i][2]);
+		}
+	}
 	
 	public boolean getUserSelection() {
 		String input = getStringInput();

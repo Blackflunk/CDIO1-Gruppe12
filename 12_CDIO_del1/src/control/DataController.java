@@ -1,12 +1,21 @@
 package control;
 
+import java.util.ArrayList;
+
+import data.OperatorDTO;
 import exceptions.DALException;
 import funktionality.IDatalogic;
 import funktionality.Datalogic;
 
 public class DataController implements IDatalogic{
 	Datalogic data = new Datalogic();
-
+	IOController IO;
+	
+	public DataController(IOController IO) {
+		this.IO=IO;
+	}
+	
+	
 	@Override
 	public String createUser(String name, String CPR, boolean admin) {
 		// TODO Auto-generated method stub
@@ -20,8 +29,7 @@ public class DataController implements IDatalogic{
 	}
 
 	@Override
-	public boolean validateUser(String CPR, String password) throws DALException {
-		
+	public boolean validateUser(String CPR, String password) {
 		return data.validateUser(CPR, password);
 		
 	}
@@ -34,8 +42,26 @@ public class DataController implements IDatalogic{
 
 	@Override
 	public String[][] getUserList() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<OperatorDTO> list = new ArrayList<OperatorDTO>();
+		try {
+		list = data.getOperatorList();
+		} catch (DALException e) {
+			IO.printMessage("No users found");
+		}
+		String[][] output = new String[list.size()][3];
+		for (int i=0; i<list.size(); i++) {
+			output[i][0] = Integer.toString(data.getOperatorFromIndex(i).getOprId());
+		}
+		for (int i=0; i<list.size(); i++) {
+			output[i][1] = data.getOperatorFromIndex(i).getCpr();
+		}
+		for (int i=0; i<list.size(); i++) {
+			output[i][2] = data.getOperatorFromIndex(i).getOprNavn();
+		}
+		return output;
+		
+		
+		
 	}
 
 	@Override
