@@ -194,6 +194,34 @@ public class Datalogic implements IOperatorDTO{
 		//Her skal der returnes password til databasen n�r den er f�rdiglavet
 		return password;
 	}
+	
+	// Finder navn ud fra CPR-nummer.
+	public String getOprName(String CPR){
+		OperatorDTO operatorDTO;
+		//Finder alle CPR numre i arraylisten for operatørene.
+			for (int i = 0;i<operatorList.size()-1;i++){
+				// Henter og sammenligner nuværende objekt med det givne CPR-nummer.
+				operatorDTO = operatorList.get(i);
+				if(CPR == operatorDTO.getCpr()){
+					return operatorDTO.getOprNavn();
+				}
+			}
+		return "-1";
+	}
+	
+	// Ser på om brugernavnet matcher password.
+	public boolean validateUser(String username, String password){
+		OperatorDTO operatorDTO;
+		// Tager fat i alle operatørene i vores arraylist.
+		for (int i = 0;i<operatorList.size()-1;i++){
+			operatorDTO = operatorList.get(i);
+			// Sammenligner om nuværende objects CPR nummer og password passer sammen.
+				if(username == operatorDTO.getCpr() && password == operatorDTO.getPassword()){
+					return true;
+				}
+			}	
+		return false;	
+	}
 
 	@Override
 	public ArrayList<OperatorDTO> getOperatorList() throws DALException {
