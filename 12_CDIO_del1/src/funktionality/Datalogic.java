@@ -42,12 +42,13 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 		return false;
 		
 	}
-	public String createOperator(OperatorDTO opr) throws DALException {
-		opr.setOprId(generateOprID());
-		opr.setPassword(generatePassword());
-		operatorList.add(new OperatorDTO(opr.getOprId(),opr.getOprNavn(),opr.getIni(),opr.getCpr(), opr.getAdmin(), opr.getPassword()));
+
+	@Override
+	public String createOperator(String Navn, String CPR, boolean admin)
+			throws DALException {
+		OperatorDTO opr = new OperatorDTO(generateOprID(),Navn,"tempINI",CPR, admin, generatePassword());
+		operatorList.add(opr);
 		return opr.getPassword();
-		
 	}
 
 	@Override
@@ -255,14 +256,4 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 	public OperatorDTO getOperatorFromIndex(int index) {
 		return operatorList.get(index);
 	}
-
-	@Override
-	public String createOperator(String Navn, String CPR, boolean admin)
-			throws DALException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
 }
