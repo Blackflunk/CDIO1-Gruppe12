@@ -11,16 +11,16 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 	OperatorDTO operatorDTO;
 	
 	
-	public OperatorDTO getOperator(int oprId) throws DALException
+	public OperatorDTO getOperator(String CPR) throws DALException
 	{
 		for(int i = 0; i < operatorList.size() ;i++ )
 		{
-			if(operatorList.get(i).getOprId()== oprId){
+			if(operatorList.get(i).getCpr() == CPR){
 				return operatorList.get(i);
 			}
 			
 		}
-		throw new DALException(oprId);
+		throw new DALException();
 	}
 	
 	// Tilf�jer operatør
@@ -200,15 +200,12 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 	
 	// Ser på om brugernavnet matcher password.
 	public boolean validateUser(String username, String password){
-		OperatorDTO operatorDTO;
 		// Tager fat i alle operatørene i vores arraylist.
-		for (int i = 0;i<operatorList.size()-1;i++){
-			operatorDTO = operatorList.get(i);
-			// Sammenligner om nuværende objects CPR nummer og password passer sammen.
-				if(username == operatorDTO.getCpr() && password == operatorDTO.getPassword()){
-					return true;
-				}
-			}	
+		for (OperatorDTO o : operatorList) {
+			if(password.equals(o.getPassword()) && username.equals(o.getCpr())) {
+				return true;
+			}
+		}
 		return false;	
 	}
 	

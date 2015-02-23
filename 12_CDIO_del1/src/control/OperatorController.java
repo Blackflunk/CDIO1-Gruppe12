@@ -41,7 +41,7 @@ public class OperatorController {
 		IO.printMessage("Enter your password: ");
 		String password = IO.getStringInput();
 		if (DC.validateUser(cpr, password)) {
-			username = DC.convertToName(cpr);
+			username = cpr;
 			if (DC.isUserAdmin(cpr))
 				runAdminMenu();
 			else
