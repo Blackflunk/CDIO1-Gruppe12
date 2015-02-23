@@ -71,7 +71,6 @@ public class DataController implements IDatalogic{
 
 	@Override
 	public String convertToName(String CPR) {
-		// TODO Auto-generated method stub
 		return data.getOprName(CPR);
 	}
 	
