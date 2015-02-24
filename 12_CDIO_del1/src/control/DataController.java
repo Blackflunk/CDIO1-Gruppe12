@@ -71,6 +71,10 @@ public class DataController implements IDatalogic{
 		
 		
 	}
+	public void deleteUser(int ID) {
+		data.deleteFromList(ID);
+		data.sortUserList();
+	}
 
 	@Override
 	public boolean isUserAdmin(String CPR) {
