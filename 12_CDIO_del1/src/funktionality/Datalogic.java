@@ -58,28 +58,10 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 	}
 	//Midlertidig Generator til oprID indtil der bestemmes hvordan vi h�ndterer slet operat�r
 	public int generateOprID() {
-
-		int oprId = 0, Idcounter = 11;
-		int ListLength = operatorList.size();
-		OperatorDTO TempObject;
-
-		for(int i = 0;i < ListLength;i++) {
-			TempObject = operatorList.get(i);
-			if(ListLength < 88) {
-				return ListLength + 11;
-			}
-			else if(Idcounter == 99) {
-				return -1;
-			}
-			else if(TempObject.getOprId() == Idcounter){
-				Idcounter++;
-			}
-			else if(TempObject.getOprId() != Idcounter) {
-				oprId = Idcounter; 
-				return oprId;
-			}
-		}
-		return -1;
+		
+		int newOprID = 11+operatorList.size();
+		return newOprID;
+		
 	}
 	public String generatePassword() {
 
@@ -184,6 +166,24 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 		return password;
 	}
 	
+	public String getIni(String name) {
+		char[] ini = name.toCharArray();
+		String newIni = "";
+		int countchars = 0;
+		for(int i = 0;i < ini.length-1;i++){
+			if(newIni.length() == 4){
+				return newIni;
+			}
+			if(countchars < 2) {
+				newIni += ini[i];
+			}
+			if(ini[i] == ' '){
+				countchars = 0;
+			}
+			
+		}
+		return newIni;
+	}
 	// Finder navn ud fra CPR-nummer.
 	public String getOprName(String CPR){
 		//Finder alle CPR numre i arraylisten for operatørene.

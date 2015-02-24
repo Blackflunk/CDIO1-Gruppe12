@@ -1,5 +1,11 @@
 package control;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 
 import data.OperatorDTO;
@@ -79,6 +85,21 @@ public class DataController implements IDatalogic{
 		createUser("Martin Hansen", "123412-1234", false);
 		createUser("sysadmin", "000000-1234", true);
 		createUser("Bent T. Ulrichsen", "666666-7777", false);
+		createUser("Poul Hansen", "010101-0101", false);
+        try {
+            //Whatever the file path is.
+            File userBase = new File("userdatabase.txt");
+            FileOutputStream is = new FileOutputStream(userBase);
+            OutputStreamWriter osw = new OutputStreamWriter(is);    
+            Writer w = new BufferedWriter(osw);
+            for(OperatorDTO o : data.getOperatorList()) {
+            w.write(o.getOprId() + " " + o.getOprNavn() + " " + o.getCpr() + " " + o.getAdmin() + " " + o.getPassword());
+            w.write(System.getProperty( "line.separator" ));
+            }
+            w.close();
+        } catch (IOException | DALException e) {
+            System.err.println("Problem med at skrive til filen");
+        }
 	}
 
 }
