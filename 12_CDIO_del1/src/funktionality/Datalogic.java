@@ -2,7 +2,7 @@ package funktionality;
 import java.util.*;
 
 import exceptions.DALException;
-import exceptions.UnvalidPasswordException;
+import exceptions.InvalidPasswordException;
 import data.IOperatorDTO;
 import data.OperatorDTO;
 
@@ -74,13 +74,13 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 		}
 		return 0;		
 	}				
-	public void validateChangePassword(String password) throws UnvalidPasswordException{
+	public void validateChangePassword(String password) throws InvalidPasswordException{
 		int countUpper = 0,countLower = 0,countDigit = 0,countSymbol=0,countTotal=0;
 		String TilladteTegn = ".-_+!?=";
 		int chartype=0;
 
 		if (password.length() <= 6){
-			throw new UnvalidPasswordException();
+			throw new InvalidPasswordException();
 		}
 		for(int i = 0; i < password.length(); i++){
 			if (Character.isUpperCase(password.charAt(i))){
@@ -108,7 +108,7 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 			break;
 			case 4: countSymbol++;
 			break;
-			default: throw new UnvalidPasswordException();
+			default: throw new InvalidPasswordException();
 			}
 		}
 
@@ -125,7 +125,7 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 			countTotal++;
 		}
 		if (countTotal <= 3){
-			throw new UnvalidPasswordException();
+			throw new InvalidPasswordException();
 		}
 	}
 
