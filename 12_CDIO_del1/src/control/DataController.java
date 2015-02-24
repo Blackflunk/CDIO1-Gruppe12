@@ -94,7 +94,7 @@ public class DataController implements IDatalogic{
             OutputStreamWriter osw = new OutputStreamWriter(is);    
             Writer w = new BufferedWriter(osw);
             for(OperatorDTO o : data.getOperatorList()) {
-            w.write(o.getOprId() + " " + o.getOprNavn() + " " + o.getCpr() + " " + o.getAdmin() + " " + o.getPassword());
+            w.write(o.getOprId() + " " + o.getOprNavn() + " " + o.getIni() + " " + o.getCpr() + " " + o.getAdmin() + " " + o.getPassword());
             w.write(System.getProperty( "line.separator" ));
             }
             w.close();

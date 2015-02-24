@@ -46,7 +46,7 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 	@Override
 	public String createOperator(String Navn, String CPR, boolean admin)
 			throws DALException {
-		OperatorDTO opr = new OperatorDTO(generateOprID(),Navn,"tempINI",CPR, admin, generatePassword());
+		OperatorDTO opr = new OperatorDTO(generateOprID(),Navn,getIni(Navn),CPR, admin, generatePassword());
 		operatorList.add(opr);
 		return opr.getPassword();
 	}
@@ -167,23 +167,23 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 	}
 	
 	public String getIni(String name) {
-		char[] ini = name.toCharArray();
-		String newIni = "";
-		int countchars = 0;
-		for(int i = 0;i < ini.length-1;i++){
-			if(newIni.length() == 4){
-				return newIni;
+			int dotindex = 0, spaceindex = 0;
+			spaceindex = name.indexOf(' ');
+			dotindex = name.indexOf('.');
+			String newIni = "";
+			if(dotindex > 2){
+				newIni = name.substring(0, 2) + name.substring(dotindex+2, dotindex+4);	
 			}
-			if(countchars < 2) {
-				newIni += ini[i];
+			else if (spaceindex > 2){
+				newIni = name.substring(0, 2) + name.substring(spaceindex+1, spaceindex+3);
 			}
-			if(ini[i] == ' '){
-				countchars = 0;
+
+			else {
+				newIni = name.substring(0, 4);
 			}
-			
+			return newIni;
 		}
-		return newIni;
-	}
+	
 	// Finder navn ud fra CPR-nummer.
 	public String getOprName(String CPR){
 		//Finder alle CPR numre i arraylisten for operatørene.
