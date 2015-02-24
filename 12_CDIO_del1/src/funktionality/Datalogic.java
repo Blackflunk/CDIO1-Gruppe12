@@ -192,7 +192,7 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 			else {
 				newIni = name.substring(0, 4);
 			}
-			return newIni;
+			return newIni.toLowerCase();
 		}
 	
 	// Finder navn ud fra CPR-nummer.
