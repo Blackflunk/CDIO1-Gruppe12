@@ -2,6 +2,7 @@ package funktionality;
 import java.util.*;
 
 import exceptions.DALException;
+import exceptions.UnvalidPasswordException;
 import data.IOperatorDTO;
 import data.OperatorDTO;
 
@@ -215,6 +216,63 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 			}
 		}
 		return false;	
+	}
+	
+	public void validateChangePassword(String password) throws UnvalidPasswordException{
+		int countUpper = 0,countLower = 0,countDigit = 0,countSymbol=0,countTotal=0;
+		String TilladteTegn = ".-_+!?=";
+		int chartype=0;
+		
+		if (password.length() <= 6){
+			throw new UnvalidPasswordException();
+		}
+		
+		for(int i = 0; i < password.length(); i++){
+			 	if (Character.isUpperCase(password.charAt(i))){
+			 		chartype=1;
+			 	}
+			 	
+			 	else if (Character.isLowerCase(password.charAt(i))){
+			 		chartype=2;
+			 	}
+			 	
+			 	else if (Character.isDigit(password.charAt(i))){
+			 		chartype=3;
+			 	}
+			 	for(int k = 0; k<TilladteTegn.length();k++){
+			 		if (password.charAt(i)==TilladteTegn.charAt(k)){
+			 			chartype=4;
+			 		}
+			 	}
+			 	switch(chartype) {
+				case 1: countUpper++;
+				break;
+				case 2: countLower++;
+				break;
+				case 3: countDigit++;
+				break;
+				case 4: countSymbol++;
+				break;
+				default: throw new UnvalidPasswordException();
+				}
+			}
+	
+			if (countUpper>=1){
+				countTotal++;
+			}
+			if (countLower>=1){
+				countTotal++;
+			}
+			if (countDigit>=1){
+				countTotal++;
+			}
+			if (countSymbol>=1){
+				countTotal++;
+			}
+			if (countTotal <= 3){
+				throw new UnvalidPasswordException();
+			}
+
 	}
 	
 	public void sortUserList(){
