@@ -222,7 +222,7 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 		// Tager fat i alle operatørene i vores arraylist.
 		for (int i = 0;i<operatorList.size()-1;i++){
 			operatorDTO = operatorList.get(i);
-				if(CPR == operatorDTO.getCpr()){
+				if(CPR.equals(operatorDTO.getCpr())){
 					return operatorDTO.getAdmin();
 				}
 			}	

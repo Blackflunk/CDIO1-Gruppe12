@@ -1,6 +1,7 @@
 package control;
 
 import exceptions.DALException;
+import exceptions.LoginMatchException;
 
 public class OperatorController {
 	private boolean admin;
@@ -34,23 +35,14 @@ public class OperatorController {
 	}
 	
 	public void userLogIn() {
-		boolean run = true;
-		while (run) {
-		IO.printMessage("Enter your CPR-number: ");
-		cpr = IO.getStringInput();
-		IO.printMessage("Enter your password: ");
-		String password = IO.getStringInput();
-		if (DC.validateUser(cpr, password)) {
-			username = DC.convertToName(cpr);;
-			if (DC.isUserAdmin(cpr))
-				runAdminMenu();
-			else
-				runUserMenu();
-		} else {
-			IO.printMessage("The CPR-number and the password didn't match. Try again? Y/N");
-			if (IO.getUserSelection()==false)
-			run=false;
-			}
+		if (validateLogIn()) {
+		username = DC.convertToName(cpr);;
+		if (DC.isUserAdmin(cpr)) {
+			runAdminMenu();
+			System.out.println("check");
+		}
+		else
+			runUserMenu();
 		}
 	}
 	public void createAccount() {
@@ -68,8 +60,18 @@ public class OperatorController {
 		while(run){
 		IO.printManageMenu(username);
 		switch(IO.getManageMenu()) {
-		case 1: // Change name
-		case 2: // Change password
+		case 1: IO.printMessage("Rename user \n"+"#######################################");
+		if (validateLogIn()) {
+			IO.printMessage("Type in your new name");
+			String input = IO.getStringInput();
+			// change name
+		} break;
+		case 2: IO.printMessage("Change password \n"+"#######################################");
+		if (validateLogIn()) {
+			IO.printMessage("Type in your new password");
+			String input = IO.getStringInput();
+			// change password
+		} break;
 		case 3: run=false;
 				break;
 		}}
@@ -126,6 +128,23 @@ public class OperatorController {
 	public String createAccount(String name, String CPR) {
 		String password = DC.createUser(name, CPR, false);
 		return password;
+	}
+	
+	public boolean validateLogIn() {
+		IO.printMessage("Enter your CPR-number: ");
+		cpr = IO.getStringInput();
+		IO.printMessage("Enter your password: ");
+		String password = IO.getStringInput();
+		try {
+		DC.validateUser(cpr, password);
+		} catch (LoginMatchException e) {
+			IO.printMessage("The CPR-number and the password didn't match. Try again? Y/N");
+			if (IO.getUserSelection()==false)
+				return false;
+			else
+				validateLogIn();
+		}
+		return true;
 	}
 	
 	

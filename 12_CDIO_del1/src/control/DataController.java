@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import data.OperatorDTO;
 import exceptions.DALException;
+import exceptions.LoginMatchException;
 import funktionality.IDatalogic;
 import funktionality.Datalogic;
 
@@ -35,8 +36,9 @@ public class DataController implements IDatalogic{
 	}
 
 	@Override
-	public boolean validateUser(String CPR, String password) {
-		return data.validateUser(CPR, password);
+	public void validateUser(String CPR, String password) throws LoginMatchException{
+		if (data.validateUser(CPR, password)==false)
+			throw new LoginMatchException();
 		
 	}
 
