@@ -2,7 +2,6 @@ package funktionality;
 import java.util.*;
 
 import exceptions.DALException;
-import exceptions.UnvalidPasswordException;
 import data.IOperatorDTO;
 import data.OperatorDTO;
 
@@ -59,23 +58,22 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 	}
 	//Midlertidig Generator til oprID indtil der bestemmes hvordan vi h�ndterer slet operat�r
 	public int generateOprID() {
-		OperatorDTO o;
-		if(operatorList.size() == 0){
-			return 11;
+		int counter = 11;
+		if(operatorList.size() < 2){
+		int newOprID = 11+operatorList.size();
+		return newOprID;
 		}
-		for(int i = 0;i < operatorList.size();i++){
-			o = operatorList.get(i);
-			if(i+11 == o.getOprId() && operatorList.size() == i+1){
-				System.out.println("ens");
-				return i+12;
+		for(OperatorDTO o : operatorList){
+			if(o.getOprId() == counter){
+				counter++;
 			}
-			if(i+11 != o.getOprId()){
-				return i+11;
+			if(o.getOprId() != counter){
+				return counter;
 			}
 		}
-		return 0;
+		return -1;
+		
 	}
-
 	public String generatePassword() {
 
 		//initialiserer variable
@@ -219,66 +217,17 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 		return false;	
 	}
 	
-	public void validateChangePassword(String password) throws UnvalidPasswordException{
-		int countUpper = 0,countLower = 0,countDigit = 0,countSymbol=0,countTotal=0;
-		String TilladteTegn = ".-_+!?=";
-		int chartype=0;
-		
-		if (password.length() <= 6){
-			throw new UnvalidPasswordException();
+	
+	public static Comparator<OperatorDTO> ID = new Comparator<OperatorDTO>(){
+		public int compare(OperatorDTO o1, OperatorDTO o2) {	
+			return compareTo(o1,o2);
 		}
+		};
 		
-		for(int i = 0; i < password.length(); i++){
-			 	if (Character.isUpperCase(password.charAt(i))){
-			 		chartype=1;
-			 	}
-			 	
-			 	else if (Character.isLowerCase(password.charAt(i))){
-			 		chartype=2;
-			 	}
-			 	
-			 	else if (Character.isDigit(password.charAt(i))){
-			 		chartype=3;
-			 	}
-			 	for(int k = 0; k<TilladteTegn.length();k++){
-			 		if (password.charAt(i)==TilladteTegn.charAt(k)){
-			 			chartype=4;
-			 		}
-			 	}
-			 	switch(chartype) {
-				case 1: countUpper++;
-				break;
-				case 2: countLower++;
-				break;
-				case 3: countDigit++;
-				break;
-				case 4: countSymbol++;
-				break;
-				default: throw new UnvalidPasswordException();
-				}
-			}
-	
-			if (countUpper>=1){
-				countTotal++;
-			}
-			if (countLower>=1){
-				countTotal++;
-			}
-			if (countDigit>=1){
-				countTotal++;
-			}
-			if (countSymbol>=1){
-				countTotal++;
-			}
-			if (countTotal <= 3){
-				throw new UnvalidPasswordException();
-			}
+		public void sortUserList(){ 
+			Collections.sort(operatorList, Datalogic.ID);
+		}
 
-	}
-	
-	public void sortUserList(){
-		// Collections.sort(tempID<T> operatorList);
-	}
 
 	@Override
 	public ArrayList<OperatorDTO> getOperatorList() throws DALException {
@@ -299,19 +248,18 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 		return false;
 	}
 
-	@Override
-	public int compareTo(OperatorDTO o) {
+	public static int compareTo(OperatorDTO o1, OperatorDTO o2) {
 		 	final int BEFORE = -1;
 		    final int EQUAL = 0;
 		    final int AFTER = 1;
 
 		    //this optimization is usually worthwhile, and can
 		    //always be added
-		    // if (this.tempID == o.getOprId()) return EQUAL;
+		    if (o1.getOprId() == o2.getOprId()) return EQUAL;
 
 		    //primitive numbers follow this form
-		    //if (this.tempID < o.getOprId()) return BEFORE;
-		    //if (this.tempID > o.getOprId()) return AFTER;
+		    if (o1.getOprId() < o2.getOprId()) return BEFORE;
+		    if (o1.getOprId() > o2.getOprId()) return AFTER;
 		    
 		    return EQUAL;
 	}
@@ -319,5 +267,11 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 	@Override
 	public OperatorDTO getOperatorFromIndex(int index) {
 		return operatorList.get(index);
+	}
+
+	@Override
+	public int compareTo(OperatorDTO o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
