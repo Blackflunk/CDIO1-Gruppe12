@@ -1,13 +1,7 @@
 package control;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+import java.io.*;
 import java.util.ArrayList;
-
 import data.OperatorDTO;
 import exceptions.DALException;
 import exceptions.LoginMatchException;
@@ -87,6 +81,7 @@ public class DataController implements IDatalogic{
 	}
 	
 	public void createDefaultUsers() {
+		data.addToList(new OperatorDTO(11,"system adminstrator","sysadm","111111-1111",true,"admin"));
 		createUser("Martin Hansen", "123412-1234", false);
 		createUser("sysadmin", "000000-1234", true);
 		createUser("Bent T. Ulrichsen", "666666-7777", false);

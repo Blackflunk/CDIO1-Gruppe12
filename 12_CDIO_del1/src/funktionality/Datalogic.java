@@ -66,7 +66,6 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 		for(int i = 0;i < operatorList.size();i++){
 			o = operatorList.get(i);
 			if(i+11 == o.getOprId() && operatorList.size() == i+1){
-				System.out.println("ens");
 				return i+12;
 			}
 			if(i+11 != o.getOprId()){
