@@ -58,9 +58,20 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 	}
 	//Midlertidig Generator til oprID indtil der bestemmes hvordan vi h�ndterer slet operat�r
 	public int generateOprID() {
-		
+		int counter = 11;
+		if(operatorList.size() < 2){
 		int newOprID = 11+operatorList.size();
 		return newOprID;
+		}
+		for(OperatorDTO o : operatorList){
+			if(o.getOprId() == counter){
+				counter++;
+			}
+			if(o.getOprId() != counter){
+				return counter;
+			}
+		}
+		return -1;
 		
 	}
 	public String generatePassword() {
