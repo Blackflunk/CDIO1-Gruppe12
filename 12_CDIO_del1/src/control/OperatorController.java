@@ -120,7 +120,13 @@ public class OperatorController {
 				break;
 		case 4: IO.printUserList(DC.getUserList());
 				break;
-		case 5:	// delete user
+		case 5:	
+			IO.printMessage("#######################################");
+			IO.printMessage("Delete user by OPR-ID");
+			IO.printMessage("#######################################");
+			int input=IO.getIntInput();
+			DC.deleteUser(input);
+			break;
 		case 6:	// make user admin
 		}}
 	}
