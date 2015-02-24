@@ -2,6 +2,7 @@ package funktionality;
 import java.util.*;
 
 import exceptions.DALException;
+import exceptions.UnvalidPasswordException;
 import data.IOperatorDTO;
 import data.OperatorDTO;
 
@@ -9,8 +10,8 @@ import data.OperatorDTO;
 public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 	private ArrayList<OperatorDTO> operatorList = new ArrayList<OperatorDTO>();
 	OperatorDTO operatorDTO;
-	
-	
+
+
 	public OperatorDTO getOperator(String CPR) throws DALException
 	{
 		for(int i = 0; i < operatorList.size() ;i++ )
@@ -18,21 +19,21 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 			if(operatorList.get(i).getCpr() == CPR){
 				return operatorList.get(i);
 			}
-			
+
 		}
 		throw new DALException();
 	}
-	
+
 	// Tilf�jer operatør
 	public void addToList(OperatorDTO addInput)
 	{
 		operatorList.add(addInput);
-		
+
 	}
 	// Slette Operat�r
 	public boolean deleteFromList(int index)
 	{
-		
+
 		for (OperatorDTO o : operatorList) {
 			if (o.getOprId()==index){
 				operatorList.remove(o);
@@ -40,7 +41,7 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 			}
 		}
 		return false;
-		
+
 	}
 
 	@Override
@@ -54,26 +55,81 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 	@Override
 	public void updateOperator(data.OperatorDTO opr) throws DALException {
 		// TODO Auto-generated method stub
-		
+
 	}
 	//Midlertidig Generator til oprID indtil der bestemmes hvordan vi h�ndterer slet operat�r
 	public int generateOprID() {
-		int counter = 11;
-		if(operatorList.size() < 2){
-		int newOprID = 11+operatorList.size();
-		return newOprID;
+		OperatorDTO o;
+		if(operatorList.size() == 0){
+			return 11;
 		}
-		for(OperatorDTO o : operatorList){
-			if(o.getOprId() == counter){
-				counter++;
+		for(int i = 0;i < operatorList.size();i++){
+			o = operatorList.get(i);
+			if(i+11 == o.getOprId() && operatorList.size() == i+1){
+				System.out.println("ens");
+				return i+12;
 			}
-			if(o.getOprId() != counter){
-				return counter;
+			if(i+11 != o.getOprId()){
+				return i+11;
 			}
 		}
-		return -1;
-		
+		return 0;		
+	}				
+	public void validateChangePassword(String password) throws UnvalidPasswordException{
+		int countUpper = 0,countLower = 0,countDigit = 0,countSymbol=0,countTotal=0;
+		String TilladteTegn = ".-_+!?=";
+		int chartype=0;
+
+		if (password.length() <= 6){
+			throw new UnvalidPasswordException();
+		}
+		for(int i = 0; i < password.length(); i++){
+			if (Character.isUpperCase(password.charAt(i))){
+				chartype=1;
+			}
+
+			else if (Character.isLowerCase(password.charAt(i))){
+				chartype=2;
+			}
+
+			else if (Character.isDigit(password.charAt(i))){
+				chartype=3;
+			}
+			for(int k = 0; k<TilladteTegn.length();k++){
+				if (password.charAt(i)==TilladteTegn.charAt(k)){
+					chartype=4;
+				}
+			}
+			switch(chartype) {
+			case 1: countUpper++;
+			break;
+			case 2: countLower++;
+			break;
+			case 3: countDigit++;
+			break;
+			case 4: countSymbol++;
+			break;
+			default: throw new UnvalidPasswordException();
+			}
+		}
+
+		if (countUpper>=1){
+			countTotal++;
+		}
+		if (countLower>=1){
+			countTotal++;
+		}
+		if (countDigit>=1){
+			countTotal++;
+		}
+		if (countSymbol>=1){
+			countTotal++;
+		}
+		if (countTotal <= 3){
+			throw new UnvalidPasswordException();
+		}
 	}
+
 	public String generatePassword() {
 
 		//initialiserer variable
@@ -176,36 +232,36 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 		//Her skal der returnes password til databasen n�r den er f�rdiglavet
 		return password;
 	}
-	
-	public String getIni(String name) {
-			int dotindex = 0, spaceindex = 0;
-			spaceindex = name.indexOf(' ');
-			dotindex = name.indexOf('.');
-			String newIni = "";
-			if(dotindex > 2){
-				newIni = name.substring(0, 2) + name.substring(dotindex+2, dotindex+4);	
-			}
-			else if (spaceindex > 2){
-				newIni = name.substring(0, 2) + name.substring(spaceindex+1, spaceindex+3);
-			}
 
-			else {
-				newIni = name.substring(0, 4);
-			}
-			return newIni.toLowerCase();
+	public String getIni(String name) {
+		int dotindex = 0, spaceindex = 0;
+		spaceindex = name.indexOf(' ');
+		dotindex = name.indexOf('.');
+		String newIni = "";
+		if(dotindex > 2){
+			newIni = name.substring(0, 2) + name.substring(dotindex+2, dotindex+4);	
 		}
-	
+		else if (spaceindex > 2){
+			newIni = name.substring(0, 2) + name.substring(spaceindex+1, spaceindex+3);
+		}
+
+		else {
+			newIni = name.substring(0, 4);
+		}
+		return newIni.toLowerCase();
+	}
+
 	// Finder navn ud fra CPR-nummer.
 	public String getOprName(String CPR){
 		//Finder alle CPR numre i arraylisten for operatørene.
-			for (OperatorDTO o : operatorList) {
-				if(CPR.equals(o.getCpr())) {
-					return o.getOprNavn();
-				}
+		for (OperatorDTO o : operatorList) {
+			if(CPR.equals(o.getCpr())) {
+				return o.getOprNavn();
 			}
+		}
 		return "-1";
 	}
-	
+
 	// Ser på om brugernavnet matcher password.
 	public boolean validateUser(String username, String password){
 		// Tager fat i alle operatørene i vores arraylist.
@@ -216,17 +272,17 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 		}
 		return false;	
 	}
-	
-	
+
+
 	public static Comparator<OperatorDTO> ID = new Comparator<OperatorDTO>(){
 		public int compare(OperatorDTO o1, OperatorDTO o2) {	
 			return compareTo(o1,o2);
 		}
-		};
-		
-		public void sortUserList(){ 
-			Collections.sort(operatorList, Datalogic.ID);
-		}
+	};
+
+	public void sortUserList(){ 
+		Collections.sort(operatorList, Datalogic.ID);
+	}
 
 
 	@Override
@@ -235,33 +291,33 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 			throw new DALException();
 		return operatorList;
 	}
-	
+
 	public boolean isUserAdmin(String CPR) {
 		OperatorDTO operatorDTO;
 		// Tager fat i alle operatørene i vores arraylist.
 		for (int i = 0;i<operatorList.size()-1;i++){
 			operatorDTO = operatorList.get(i);
-				if(CPR.equals(operatorDTO.getCpr())){
-					return operatorDTO.getAdmin();
-				}
-			}	
+			if(CPR.equals(operatorDTO.getCpr())){
+				return operatorDTO.getAdmin();
+			}
+		}	
 		return false;
 	}
 
 	public static int compareTo(OperatorDTO o1, OperatorDTO o2) {
-		 	final int BEFORE = -1;
-		    final int EQUAL = 0;
-		    final int AFTER = 1;
+		final int BEFORE = -1;
+		final int EQUAL = 0;
+		final int AFTER = 1;
 
-		    //this optimization is usually worthwhile, and can
-		    //always be added
-		    if (o1.getOprId() == o2.getOprId()) return EQUAL;
+		//this optimization is usually worthwhile, and can
+		//always be added
+		if (o1.getOprId() == o2.getOprId()) return EQUAL;
 
-		    //primitive numbers follow this form
-		    if (o1.getOprId() < o2.getOprId()) return BEFORE;
-		    if (o1.getOprId() > o2.getOprId()) return AFTER;
-		    
-		    return EQUAL;
+		//primitive numbers follow this form
+		if (o1.getOprId() < o2.getOprId()) return BEFORE;
+		if (o1.getOprId() > o2.getOprId()) return AFTER;
+
+		return EQUAL;
 	}
 
 	@Override
