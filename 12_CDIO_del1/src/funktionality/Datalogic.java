@@ -7,7 +7,7 @@ import data.IOperatorDTO;
 import data.OperatorDTO;
 
 
-public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
+public class Datalogic implements IOperatorDTO {
 	private ArrayList<OperatorDTO> operatorList = new ArrayList<OperatorDTO>();
 	OperatorDTO operatorDTO;
 
@@ -309,12 +309,6 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 	@Override
 	public OperatorDTO getOperatorFromIndex(int index) {
 		return operatorList.get(index);
-	}
-
-	@Override
-	public int compareTo(OperatorDTO arg0) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 	
 	class IDComparator implements Comparator<OperatorDTO>{

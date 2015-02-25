@@ -26,6 +26,7 @@ public class DataController implements IDatalogic{
 		}catch(DALException e){
 
 		}
+		
 		return password;
 	}
 
