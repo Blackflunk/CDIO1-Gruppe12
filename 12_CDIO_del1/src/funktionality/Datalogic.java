@@ -19,7 +19,6 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 			if(operatorList.get(i).getCpr() == CPR){
 				return operatorList.get(i);
 			}
-
 		}
 		throw new DALException();
 	}
@@ -28,12 +27,10 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 	public void addToList(OperatorDTO addInput)
 	{
 		operatorList.add(addInput);
-
 	}
 	// Slette Operatï¿½r
 	public boolean deleteFromList(int index)
 	{
-
 		for (OperatorDTO o : operatorList) {
 			if (o.getOprId()==index){
 				operatorList.remove(o);
@@ -41,7 +38,6 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 			}
 		}
 		return false;
-
 	}
 
 	@Override
@@ -54,7 +50,20 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 
 	@Override
 	public void updateOperator(data.OperatorDTO opr) throws DALException {
-		// TODO Auto-generated method stub
+		//Undersøg hvilket element er ændret i forhold til oprindelige element
+		for(OperatorDTO o : operatorList) {
+			if(opr.getCpr() == o.getCpr()) {
+				if(opr.getAdmin() != o.getAdmin()){
+					o.setAdmin(opr.getAdmin());
+				}
+				else if(opr.getOprNavn() != o.getOprNavn()) {
+					o.setOprNavn(opr.getOprNavn());
+				}
+				else if(opr.getPassword() != o.getPassword()) {
+					o.setPassword(opr.getPassword());
+				}
+			}
+		}
 
 	}
 	//Midlertidig Generator til oprID indtil der bestemmes hvordan vi hï¿½ndterer slet operatï¿½r
@@ -227,8 +236,7 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 			PwDchar = PwD.get(i);
 			password += String.copyValueOf(PwDchar);
 		}
-
-		//Her skal der returnes password til databasen nï¿½r den er fï¿½rdiglavet
+		//Returnerer password til metoden der kaldte den.
 		return password;
 	}
 
@@ -272,7 +280,6 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 		return false;	
 	}
 
-
 	public static Comparator<OperatorDTO> ID = new Comparator<OperatorDTO>(){
 		public int compare(OperatorDTO o1, OperatorDTO o2) {	
 			return compareTo(o1,o2);
@@ -282,7 +289,6 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 	public void sortUserList(){ 
 		Collections.sort(operatorList, Datalogic.ID);
 	}
-
 
 	@Override
 	public ArrayList<OperatorDTO> getOperatorList() throws DALException {

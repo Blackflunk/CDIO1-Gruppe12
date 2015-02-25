@@ -13,17 +13,16 @@ import funktionality.Datalogic;
 public class DataController implements IDatalogic{
 	Datalogic data = new Datalogic();
 	IOController IO;
-	
+
 	public DataController(IOController IO) {
 		this.IO=IO;
 	}
-	
-	
+
 	@Override
 	public String createUser(String name, String CPR, boolean admin) {
 		String password = "";
 		try{
-		password = data.createOperator(name,CPR,admin);
+			password = data.createOperator(name,CPR,admin);
 		}catch(DALException e){
 
 		}
@@ -36,7 +35,7 @@ public class DataController implements IDatalogic{
 			throw new LoginMatchException();
 		}
 	}
-	
+
 	@Override
 	public boolean validatePassword(String password){
 		try {
@@ -51,7 +50,7 @@ public class DataController implements IDatalogic{
 	public String[][] getUserList() {
 		ArrayList<OperatorDTO> list = new ArrayList<OperatorDTO>();
 		try {
-		list = data.getOperatorList();
+			list = data.getOperatorList();
 		} catch (DALException e) {
 			IO.printMessage("No users found");
 		}
@@ -66,11 +65,8 @@ public class DataController implements IDatalogic{
 			output[i][2] = data.getOperatorFromIndex(i).getOprNavn();
 		}
 		return output;
-		
-		
-		
 	}
-	
+
 	public void deleteUser(int ID) {
 		data.deleteFromList(ID);
 	}
@@ -84,27 +80,26 @@ public class DataController implements IDatalogic{
 	public String convertToName(String CPR) {
 		return data.getOprName(CPR);
 	}
-	
+
 	public void createDefaultUsers() {
 		data.addToList(new OperatorDTO(11,"system adminstrator","sysadm","111111-1111",true,"admin"));
 		createUser("Martin Hansen", "123412-1234", false);
 		createUser("sysadmin", "000000-1234", true);
 		createUser("Bent T. Ulrichsen", "666666-7777", false);
 		createUser("Poul Hansen", "010101-0101", false);
-        try {
-            //Whatever the file path is.
-            File userBase = new File("userdatabase.txt");
-            FileOutputStream is = new FileOutputStream(userBase);
-            OutputStreamWriter osw = new OutputStreamWriter(is);    
-            Writer w = new BufferedWriter(osw);
-            for(OperatorDTO o : data.getOperatorList()) {
-            w.write(o.getOprId() + " " + o.getOprNavn() + " " + o.getIni() + " " + o.getCpr() + " " + o.getAdmin() + " " + o.getPassword());
-            w.write(System.getProperty( "line.separator" ));
-            }
-            w.close();
-        } catch (IOException | DALException e) {
-            System.err.println("Problem med at skrive til filen");
-        }
+		try {
+			//Whatever the file path is.
+			File userBase = new File("userdatabase.txt");
+			FileOutputStream is = new FileOutputStream(userBase);
+			OutputStreamWriter osw = new OutputStreamWriter(is);    
+			Writer w = new BufferedWriter(osw);
+			for(OperatorDTO o : data.getOperatorList()) {
+				w.write(o.getOprId() + " " + o.getOprNavn() + " " + o.getIni() + " " + o.getCpr() + " " + o.getAdmin() + " " + o.getPassword());
+				w.write(System.getProperty( "line.separator" ));
+			}
+			w.close();
+		} catch (IOException | DALException e) {
+			System.err.println("Problem med at skrive til filen");
+		}
 	}
-
 }
