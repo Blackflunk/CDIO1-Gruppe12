@@ -26,7 +26,12 @@ public class Datalogic implements IOperatorDTO {
 	// Tilf�jer operatør
 	public void addToList(OperatorDTO addInput)
 	{
-		operatorList.add(addInput);
+		if(operatorList.size() < 89){
+			operatorList.add(addInput);
+		}
+		else {
+			System.out.println("The Database is Full, please delete someone before trying to add more");
+		}
 	}
 	// Slette Operat�r
 	public boolean deleteFromList(int index)
