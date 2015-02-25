@@ -50,7 +50,7 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 
 	@Override
 	public void updateOperator(String CPR, int Cnum, String Change) throws DALException {
-		//Undersøg hvilket element er ændret i forhold til oprindelige element
+		//Undersï¿½g hvilket element er ï¿½ndret i forhold til oprindelige element
 		for(OperatorDTO o : operatorList) {
 			if(CPR.equals(o.getCpr())) {
 				if(Cnum == 3){
@@ -283,14 +283,9 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 		return false;	
 	}
 
-	public static Comparator<OperatorDTO> ID = new Comparator<OperatorDTO>(){
-		public int compare(OperatorDTO o1, OperatorDTO o2) {	
-			return compareTo(o1,o2);
-		}
-	};
 
 	public void sortUserList(){ 
-		Collections.sort(operatorList, Datalogic.ID);
+		Collections.sort(operatorList, new IDComparator());
 	}
 
 	@Override
@@ -310,21 +305,6 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 		return false;
 	}
 
-	public static int compareTo(OperatorDTO o1, OperatorDTO o2) {
-		final int BEFORE = -1;
-		final int EQUAL = 0;
-		final int AFTER = 1;
-
-		//this optimization is usually worthwhile, and can
-		//always be added
-		if (o1.getOprId() == o2.getOprId()) return EQUAL;
-
-		//primitive numbers follow this form
-		if (o1.getOprId() < o2.getOprId()) return BEFORE;
-		if (o1.getOprId() > o2.getOprId()) return AFTER;
-
-		return EQUAL;
-	}
 
 	@Override
 	public OperatorDTO getOperatorFromIndex(int index) {
@@ -332,8 +312,26 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 	}
 
 	@Override
-	public int compareTo(OperatorDTO o) {
+	public int compareTo(OperatorDTO arg0) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	class IDComparator implements Comparator<OperatorDTO>{
+		public  int compare(OperatorDTO o1, OperatorDTO o2) {
+			final int BEFORE = -1;
+			final int EQUAL = 0;
+			final int AFTER = 1;
+
+			//this optimization is usually worthwhile, and can
+			//always be added
+			if (o1.getOprId() == o2.getOprId()) return EQUAL;
+
+			//primitive numbers follow this form
+			if (o1.getOprId() < o2.getOprId()) return BEFORE;
+			if (o1.getOprId() > o2.getOprId()) return AFTER;
+
+			return EQUAL;
+		}
 	}
 }

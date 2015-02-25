@@ -48,6 +48,7 @@ public class DataController implements IDatalogic{
 
 	@Override
 	public String[][] getUserList() {
+		data.sortUserList();
 		ArrayList<OperatorDTO> list = new ArrayList<OperatorDTO>();
 		try {
 			list = data.getOperatorList();
@@ -69,6 +70,7 @@ public class DataController implements IDatalogic{
 
 	public void deleteUser(int ID) {
 		data.deleteFromList(ID);
+		data.sortUserList();
 	}
 
 	@Override
