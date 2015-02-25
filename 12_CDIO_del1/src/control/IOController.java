@@ -15,7 +15,7 @@ public class IOController {
 			input = TUI.getResponse();
 		} catch (IOException e) {
 			TUI.printMessage("No input detected");
-			getStringInput();
+			return getStringInput();
 		}
 		return input;
 	}
@@ -28,7 +28,7 @@ public class IOController {
 		}
 		catch(NumberFormatException e){
 			TUI.printMessage("Couldn't recognize the input");
-			getIntInput();
+			return getIntInput();
 		}
 		
 		return output;	
@@ -63,7 +63,7 @@ public class IOController {
 		TUI.printMessage("User options \n");
 		TUI.printMessage("1. Account management \n"+"2. Acces weight \n"+"3. Log out \n");
 		TUI.printMessage("Admin options \n");
-		TUI.printMessage("4. Show list of all users \n"+"5. Delete user \n"+"6. Make user admin \n"+"7. Write New Datalist");
+		TUI.printMessage("4. Show list of all users \n"+"5. Delete user \n"+"6. Make user admin \n"+"7. Write userlist to file");
 		TUI.printMessage("#######################################");
 	}
 	

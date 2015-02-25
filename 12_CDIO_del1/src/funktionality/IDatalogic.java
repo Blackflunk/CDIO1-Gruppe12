@@ -1,5 +1,6 @@
 package funktionality;
 
+import data.OperatorDTO;
 import exceptions.LoginMatchException;
 
 
@@ -11,4 +12,8 @@ public interface IDatalogic {
 	boolean isUserAdmin(String CPR);
 	String convertToName(String CPR);
 	boolean validatePassword(String password);
+	OperatorDTO getOperator(String CPR);
+	void updateUser(String CPR, int Cnum, String Change);
+	void writeNewFile();
+	void createDefaultUsers();
 }

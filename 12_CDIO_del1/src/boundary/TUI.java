@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class TUI {
+public class TUI implements IUI{
 	private BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
 	
 	public void printMessage(String message){

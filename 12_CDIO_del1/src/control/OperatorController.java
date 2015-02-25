@@ -40,7 +40,6 @@ public class OperatorController {
 		username = DC.convertToName(cpr);
 		if (DC.isUserAdmin(cpr)) {
 			runAdminMenu();
-			System.out.println("check");
 		}
 		else
 			runUserMenu();
@@ -50,17 +49,11 @@ public class OperatorController {
 		IO.printMessage("Account creation \n"+"#######################################");
 		IO.printMessage("Enter your CPR-number: ");
 		String CPR = IO.getStringInput();
-		IO.printMessage("Enter your full name: ");
-		String name = IO.getStringInput();
-		if(name.length() > 20) {
-			IO.printMessage("The name You have chosen is too long, max 20 characters.");
-			IO.printMessage("**********************");
-			IO.printMessage("Try again!: ");
-			IO.printMessage("Enter your full name: ");
-			name = IO.getStringInput();
-		}
+		String name = checkNameInput();
 			String password = createAccount(name, CPR);
-			IO.printMessage("your auto-generated password is: "+password);
+			if (!password.equals("")) {
+				IO.printMessage("your auto-generated password is: "+password);
+			}
 	}
 	
 	public void runManageMenu() {
@@ -166,7 +159,7 @@ public class OperatorController {
 			break;
 		case 7:	
 			IO.printMessage("#######################################");
-			IO.printMessage("Udskriver nuværende database til fil");
+			IO.printMessage("The database was printed to the file 'userdatabase.txt' ");
 			IO.printMessage("#######################################");
 			DC.writeNewFile();
 			break;
@@ -194,6 +187,18 @@ public class OperatorController {
 				return validateLogIn();
 		}
 		return true;
+	}
+	
+	public String checkNameInput() {
+		IO.printMessage("Enter your full name: ");
+		String name = IO.getStringInput();
+		if(name.length() > 20) {
+			IO.printMessage("The name You have chosen is too long, max 20 characters.");
+			IO.printMessage("**********************");
+			IO.printMessage("Try again! ");
+			return checkNameInput();
+		} else
+			return name;
 	}
 	
 	

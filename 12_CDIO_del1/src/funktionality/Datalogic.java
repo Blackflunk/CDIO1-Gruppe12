@@ -11,9 +11,8 @@ public class Datalogic implements IOperatorDTO {
 	private ArrayList<OperatorDTO> operatorList = new ArrayList<OperatorDTO>();
 	OperatorDTO operatorDTO;
 
-
-	public OperatorDTO getOperator(String CPR) throws DALException
-	{
+	@Override
+	public OperatorDTO getOperator(String CPR) throws DALException {
 		for(int i = 0; i < operatorList.size() ;i++ )
 		{
 			if(operatorList.get(i).getCpr() == CPR){
@@ -22,20 +21,20 @@ public class Datalogic implements IOperatorDTO {
 		}
 		throw new DALException();
 	}
-
+	
+	@Override
 	// Tilf�jer operatør
-	public void addToList(OperatorDTO addInput)
-	{
+	public void addToList(OperatorDTO addInput) throws DALException {
 		if(operatorList.size() < 89){
 			operatorList.add(addInput);
 		}
 		else {
-			System.out.println("The Database is Full, please delete someone before trying to add more");
+			throw new DALException();
 		}
 	}
+	@Override
 	// Slette Operat�r
-	public boolean deleteFromList(int index)
-	{
+	public boolean deleteFromList(int index) {
 		for (OperatorDTO o : operatorList) {
 			if (o.getOprId()==index){
 				operatorList.remove(o);
@@ -55,9 +54,11 @@ public class Datalogic implements IOperatorDTO {
 
 	@Override
 	public void updateOperator(String CPR, int Cnum, String Change) throws DALException {
+		boolean throwexception = true;
 		//Unders�g hvilket element er �ndret i forhold til oprindelige element
 		for(OperatorDTO o : operatorList) {
 			if(CPR.equals(o.getCpr())) {
+				throwexception=false;
 				if(Cnum == 3){
 					o.setAdmin(true);
 				}
@@ -72,10 +73,14 @@ public class Datalogic implements IOperatorDTO {
 				}
 			}
 		}
+		if (throwexception) {
+			throw new DALException();
+		}
 
 	}
+	@Override
 	//Midlertidig Generator til oprID indtil der bestemmes hvordan vi h�ndterer slet operat�r
-	public int generateOprID() {
+	public int generateOprID() throws DALException{
 		OperatorDTO o;
 
 		for(int i = 0;i < operatorList.size();i++){
@@ -87,8 +92,9 @@ public class Datalogic implements IOperatorDTO {
 				return i+10;
 			}
 		}
-		return 0;		
-	}				
+		throw new DALException();		
+	}	
+	@Override
 	public void validateChangePassword(String password) throws InvalidPasswordException{
 		int countUpper = 0,countLower = 0,countDigit = 0,countSymbol=0,countTotal=0;
 		String TilladteTegn = ".-_+!?=";
@@ -143,7 +149,7 @@ public class Datalogic implements IOperatorDTO {
 			throw new InvalidPasswordException();
 		}
 	}
-
+	@Override
 	public String generatePassword() {
 
 		//initialiserer variable
@@ -245,7 +251,7 @@ public class Datalogic implements IOperatorDTO {
 		//Returnerer password til metoden der kaldte den.
 		return password;
 	}
-
+	@Override
 	public String getIni(String name) {
 		int dotindex = 0, spaceindex = 0;
 		spaceindex = name.indexOf(' ');
@@ -263,7 +269,7 @@ public class Datalogic implements IOperatorDTO {
 		}
 		return newIni.toLowerCase();
 	}
-
+	@Override
 	// Finder navn ud fra CPR-nummer.
 	public String getOprName(String CPR){
 		//Finder alle CPR numre i arraylisten for operatørene.
@@ -274,7 +280,7 @@ public class Datalogic implements IOperatorDTO {
 		}
 		return "-1";
 	}
-
+	@Override
 	// Ser på om brugernavnet matcher password.
 	public boolean validateUser(String username, String password){
 		// Tager fat i alle operatørene i vores arraylist.
@@ -286,7 +292,7 @@ public class Datalogic implements IOperatorDTO {
 		return false;	
 	}
 
-
+	@Override
 	public void sortUserList(){ 
 		Collections.sort(operatorList, new IDComparator());
 	}
@@ -297,7 +303,7 @@ public class Datalogic implements IOperatorDTO {
 			throw new DALException();
 		return operatorList;
 	}
-
+	@Override
 	public boolean isUserAdmin(String CPR) {
 		// Tager fat i alle operatørene i vores arraylist.
 		for (OperatorDTO o : operatorList){
@@ -313,7 +319,7 @@ public class Datalogic implements IOperatorDTO {
 	public OperatorDTO getOperatorFromIndex(int index) {
 		return operatorList.get(index);
 	}
-	
+
 	class IDComparator implements Comparator<OperatorDTO>{
 		public  int compare(OperatorDTO o1, OperatorDTO o2) {
 			final int BEFORE = -1;
