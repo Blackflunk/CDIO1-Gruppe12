@@ -49,18 +49,20 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 	}
 
 	@Override
-	public void updateOperator(data.OperatorDTO opr) throws DALException {
+	public void updateOperator(String CPR, int Cnum, String Change) throws DALException {
 		//Undersøg hvilket element er ændret i forhold til oprindelige element
 		for(OperatorDTO o : operatorList) {
-			if(opr.getCpr() == o.getCpr()) {
-				if(opr.getAdmin() != o.getAdmin()){
-					o.setAdmin(opr.getAdmin());
+			if(CPR.equals(o.getCpr())) {
+				if(Cnum == 3){
+					if(Change.equals("true")){
+						o.setAdmin(true);
+					}
 				}
-				else if(opr.getOprNavn() != o.getOprNavn()) {
-					o.setOprNavn(opr.getOprNavn());
+				else if(Cnum == 1) {
+					o.setOprNavn(Change);
 				}
-				else if(opr.getPassword() != o.getPassword()) {
-					o.setPassword(opr.getPassword());
+				else if(Cnum == 2) {
+					o.setPassword(Change);
 				}
 			}
 		}

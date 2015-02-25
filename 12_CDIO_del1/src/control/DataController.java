@@ -81,6 +81,13 @@ public class DataController implements IDatalogic{
 		return data.getOprName(CPR);
 	}
 
+	public void updateUser(String CPR, int Cnum, String Change) {
+		try{
+			data.updateOperator(CPR,Cnum,Change);
+		}catch(DALException e){
+			System.out.println("Fejlede for groft i updateUser");
+		}
+	}
 	public void createDefaultUsers() {
 		data.addToList(new OperatorDTO(11,"system adminstrator","sysadm","111111-1111",true,"admin"));
 		createUser("Martin Hansen", "123412-1234", false);

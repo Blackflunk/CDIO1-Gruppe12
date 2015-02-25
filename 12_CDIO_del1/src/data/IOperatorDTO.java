@@ -9,7 +9,7 @@ public interface IOperatorDTO {
 	OperatorDTO getOperatorFromIndex(int index) throws DALException;
 	ArrayList<OperatorDTO> getOperatorList() throws DALException;
 	String createOperator(String Navn, String CPR, boolean admin) throws DALException;
-	void updateOperator(OperatorDTO opr) throws DALException;	
+	void updateOperator(String CPR, int Cnum, String Change) throws DALException;	
 	
 
 }

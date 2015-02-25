@@ -37,7 +37,7 @@ public class OperatorController {
 	
 	public void userLogIn() {
 		if (validateLogIn()) {
-		username = DC.convertToName(cpr);;
+		username = DC.convertToName(cpr);
 		if (DC.isUserAdmin(cpr)) {
 			runAdminMenu();
 			System.out.println("check");
@@ -65,7 +65,8 @@ public class OperatorController {
 		if (validateLogIn()) {
 			IO.printMessage("Type in your new name");
 			String input = IO.getStringInput();
-			// change name
+			DC.updateUser(cpr, 1, input);
+			username = DC.convertToName(cpr);
 		} break;
 		case 2: IO.printMessage("Change password \n"+"#######################################");
 		if (validateLogIn()) {
@@ -74,7 +75,7 @@ public class OperatorController {
 			IO.printMessage("Type in your new password");
 			String input = IO.getStringInput();
 			if (DC.validatePassword(input)) {
-				// change password
+				DC.updateUser(cpr, 2, input);
 				IO.printMessage("You succesfully changed your password");
 				run_password=false;
 				break;
@@ -141,7 +142,15 @@ public class OperatorController {
 			int input=IO.getIntInput();
 			DC.deleteUser(input);
 			break;
-		case 6:	// make user admin
+		case 6:	
+			IO.printMessage("#######################################");
+			IO.printMessage("Make User Admin by OPR-ID");
+			IO.printMessage("#######################################");
+			input=IO.getIntInput();
+			DC.updateUser(cpr, 3, "true");
+			break;
+			
+
 		}}
 	}
 	
