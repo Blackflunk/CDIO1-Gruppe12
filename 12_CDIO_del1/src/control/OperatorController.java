@@ -141,7 +141,7 @@ public class OperatorController {
 			IO.printMessage("Delete user by OPR-ID");
 			IO.printMessage("#######################################");
 			int input=IO.getIntInput();
-			if(input == 11){
+			if(input == 10){
 				IO.printMessage("#######################################");
 				IO.printMessage("CANNOT delete System Administrator");
 				IO.printMessage("#######################################");
