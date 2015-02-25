@@ -144,14 +144,13 @@ public class OperatorController {
 			break;
 		case 6:	
 			IO.printMessage("#######################################");
-			IO.printMessage("Make User Admin by OPR-ID");
+			IO.printMessage("Make User Admin by CPR");
 			IO.printMessage("#######################################");
-			input=IO.getIntInput();
-			DC.updateUser(cpr, 3, "true");
+			String adminset = IO.getStringInput();
+			DC.updateUser(adminset, 3, "true");
 			break;
-			
-
-		}}
+		}
+	}
 	}
 	
 	public String createAccount(String name, String CPR) {

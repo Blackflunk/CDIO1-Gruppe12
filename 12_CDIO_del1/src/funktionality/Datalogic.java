@@ -54,9 +54,7 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 		for(OperatorDTO o : operatorList) {
 			if(CPR.equals(o.getCpr())) {
 				if(Cnum == 3){
-					if(Change.equals("true")){
-						o.setAdmin(true);
-					}
+					o.setAdmin(true);
 				}
 				else if(Cnum == 1) {
 					o.setOprNavn(Change);
@@ -300,12 +298,10 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 	}
 
 	public boolean isUserAdmin(String CPR) {
-		OperatorDTO operatorDTO;
 		// Tager fat i alle operatørene i vores arraylist.
-		for (int i = 0;i<operatorList.size()-1;i++){
-			operatorDTO = operatorList.get(i);
-			if(CPR.equals(operatorDTO.getCpr())){
-				return operatorDTO.getAdmin();
+		for (OperatorDTO o : operatorList){
+			if(CPR.equals(o.getCpr())){
+				return o.getAdmin();
 			}
 		}	
 		return false;
