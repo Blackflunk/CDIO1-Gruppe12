@@ -72,16 +72,14 @@ public class Datalogic implements IOperatorDTO {
 	//Midlertidig Generator til oprID indtil der bestemmes hvordan vi h�ndterer slet operat�r
 	public int generateOprID() {
 		OperatorDTO o;
-		if(operatorList.size() == 0){
-			return 11;
-		}
+
 		for(int i = 0;i < operatorList.size();i++){
 			o = operatorList.get(i);
-			if(i+11 == o.getOprId() && operatorList.size() == i+1){
-				return i+12;
-			}
-			if(i+11 != o.getOprId()){
+			if(i+10 == o.getOprId() && operatorList.size() == i+1){
 				return i+11;
+			}
+			if(i+10 != o.getOprId()){
+				return i+10;
 			}
 		}
 		return 0;		

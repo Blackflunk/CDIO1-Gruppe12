@@ -109,9 +109,9 @@ public class DataController implements IDatalogic{
 
 	}
 	public void createDefaultUsers() {
-		data.addToList(new OperatorDTO(11,"system adminstrator","sysadm","111111-1111",true,"admin"));
+		data.addToList(new OperatorDTO(10,"SysAdmin","syad","111111-1111",true,">02324it!<"));
 		createUser("Martin Hansen", "123412-1234", false);
-		createUser("sysadmin", "000000-1234", true);
+		createUser("Preben Poulsen", "000000-1234", true);
 		createUser("Bent T. Ulrichsen", "666666-7777", false);
 		createUser("Poul Hansen", "010101-0101", false);
 		try {
