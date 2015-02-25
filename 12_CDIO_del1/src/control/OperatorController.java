@@ -52,8 +52,15 @@ public class OperatorController {
 		String CPR = IO.getStringInput();
 		IO.printMessage("Enter your full name: ");
 		String name = IO.getStringInput();
-		String password = createAccount(name, CPR);
-		IO.printMessage("your auto-generated password is: "+password);
+		if(name.length() > 20) {
+			IO.printMessage("The name You have chosen is too long, max 20 characters.");
+			IO.printMessage("**********************");
+			IO.printMessage("Try again!: ");
+			IO.printMessage("Enter your full name: ");
+			name = IO.getStringInput();
+		}
+			String password = createAccount(name, CPR);
+			IO.printMessage("your auto-generated password is: "+password);
 	}
 	
 	public void runManageMenu() {
