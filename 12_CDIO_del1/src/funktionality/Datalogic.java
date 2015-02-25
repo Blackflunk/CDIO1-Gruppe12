@@ -139,7 +139,7 @@ public class Datalogic implements IOperatorDTO {
 		if (countSymbol>=1){
 			countTotal++;
 		}
-		if (countTotal <= 3){
+		if (countTotal < 3){
 			throw new InvalidPasswordException();
 		}
 	}
