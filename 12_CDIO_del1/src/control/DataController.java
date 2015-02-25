@@ -88,6 +88,23 @@ public class DataController implements IDatalogic{
 			System.out.println("Fejlede for groft i updateUser");
 		}
 	}
+	public void writeNewFile() {
+		try {
+			//Whatever the file path is.
+			File userBase = new File("userdatabase.txt");
+			FileOutputStream is = new FileOutputStream(userBase);
+			OutputStreamWriter osw = new OutputStreamWriter(is);    
+			Writer w = new BufferedWriter(osw);
+			for(OperatorDTO o : data.getOperatorList()) {
+				w.write(o.getOprId() + " " + o.getOprNavn() + " " + o.getIni() + " " + o.getCpr() + " " + o.getAdmin() + " " + o.getPassword());
+				w.write(System.getProperty( "line.separator" ));
+			}
+			w.close();
+		} catch (IOException | DALException e) {
+			System.err.println("Problem med at skrive til filen");
+		}
+
+	}
 	public void createDefaultUsers() {
 		data.addToList(new OperatorDTO(11,"system adminstrator","sysadm","111111-1111",true,"admin"));
 		createUser("Martin Hansen", "123412-1234", false);

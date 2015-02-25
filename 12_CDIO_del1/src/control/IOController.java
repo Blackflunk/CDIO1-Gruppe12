@@ -63,7 +63,7 @@ public class IOController {
 		TUI.printMessage("User options \n");
 		TUI.printMessage("1. Account management \n"+"2. Acces weight \n"+"3. Log out \n");
 		TUI.printMessage("Admin options \n");
-		TUI.printMessage("4. Show list of all users \n"+"5. Delete user \n"+"6. Make user admin");
+		TUI.printMessage("4. Show list of all users \n"+"5. Delete user \n"+"6. Make user admin \n"+"7. Write New Datalist");
 		TUI.printMessage("#######################################");
 	}
 	
@@ -155,6 +155,8 @@ public class IOController {
 		case "5": output = 5;
 		break;
 		case "6": output = 6;
+		break;
+		case "7": output = 7;
 		break;
 		default: throw new UnknownInputException();
 		} } catch (UnknownInputException e) {

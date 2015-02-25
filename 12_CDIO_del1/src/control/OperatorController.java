@@ -149,6 +149,12 @@ public class OperatorController {
 			String adminset = IO.getStringInput();
 			DC.updateUser(adminset, 3, "true");
 			break;
+		case 7:	
+			IO.printMessage("#######################################");
+			IO.printMessage("Udskriver nuværende database til fil");
+			IO.printMessage("#######################################");
+			DC.writeNewFile();
+			break;
 		}
 	}
 	}
