@@ -14,10 +14,11 @@ public class WeightController implements IWeightLogic {
 		boolean run=true;
 		IO.printMessage("Welcome to the IO Interactive weight software, " + username + " \n Hope you enjoy.");
 		while(run){
-		IO.printMessage("Enter your weight: ");
-		int weight=IO.getIntInput();
-		IO.printMessage("Enter your tara-value: ");
-		int tara=IO.getIntInput();
+			IO.printMessage("Enter your Tara-weight: ");
+			int tara=IO.getIntInput();
+			IO.printMessage("Enter your Brutto-weight: ");
+			int weight=IO.getIntInput();
+
 		int result = WL.useWeight(weight, tara);
 		IO.printMessage("The weight shows: "+result);
 		IO.printMessage("Run weight again? Y/N");
