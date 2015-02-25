@@ -2,8 +2,10 @@ package control;
 
 import java.io.*;
 import java.util.ArrayList;
+
 import data.OperatorDTO;
 import exceptions.DALException;
+import exceptions.InvalidPasswordException;
 import exceptions.LoginMatchException;
 import funktionality.IDatalogic;
 import funktionality.Datalogic;
@@ -19,27 +21,30 @@ public class DataController implements IDatalogic{
 	
 	@Override
 	public String createUser(String name, String CPR, boolean admin) {
-		// TODO Auto-generated method stub
 		String password = "";
 		try{
 		password = data.createOperator(name,CPR,admin);
 		}catch(DALException e){
-			System.out.println("FEJL SKETE");
+
 		}
 		return password;
 	}
 
 	@Override
 	public void validateUser(String CPR, String password) throws LoginMatchException{
-		if (data.validateUser(CPR, password)==false)
+		if (data.validateUser(CPR, password)==false){
 			throw new LoginMatchException();
-		
+		}
 	}
-
+	
 	@Override
-	public void removeUser(String oprID) {
-		// TODO Auto-generated method stub
-		
+	public boolean validatePassword(String password){
+		try {
+			data.validateChangePassword(password);
+		} catch (InvalidPasswordException e) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
@@ -65,9 +70,9 @@ public class DataController implements IDatalogic{
 		
 		
 	}
+	
 	public void deleteUser(int ID) {
 		data.deleteFromList(ID);
-		data.sortUserList();
 	}
 
 	@Override

@@ -1,10 +1,8 @@
 package control;
 
-import exceptions.DALException;
 import exceptions.LoginMatchException;
 
 public class OperatorController {
-	private boolean admin;
 	private String username;
 	private String cpr;
 	private WeightController WC;
@@ -28,6 +26,9 @@ public class OperatorController {
 	
 	public void startTCPClient() {
 		DC.createDefaultUsers();
+		IO.printMessage("#######################################");
+		IO.printMessage("################WELCOME################");
+		IO.printMessage("#######################################");
 	}
 	
 	public void terminateTCPClient() {
@@ -68,9 +69,22 @@ public class OperatorController {
 		} break;
 		case 2: IO.printMessage("Change password \n"+"#######################################");
 		if (validateLogIn()) {
+			boolean run_password = true;
+			while (run_password){
 			IO.printMessage("Type in your new password");
 			String input = IO.getStringInput();
-			// change password
+			if (DC.validatePassword(input)) {
+				// change password
+				IO.printMessage("You succesfully changed your password");
+				run_password=false;
+				break;
+			} else {
+				IO.printMessage("The password didnt match the requirements");
+				IO.printMessage("See the requirements at https://password.dtu.dk/ \n");
+				IO.printMessage("Do you want to try again? Y/N");
+				if (IO.getUserSelection()==false)
+					run_password=false;
+			}}
 		} break;
 		case 3: run=false;
 				break;

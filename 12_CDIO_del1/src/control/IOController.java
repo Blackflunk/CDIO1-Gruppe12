@@ -63,7 +63,7 @@ public class IOController {
 		TUI.printMessage("User options \n");
 		TUI.printMessage("1. Account management \n"+"2. Acces weight \n"+"3. Log out \n");
 		TUI.printMessage("Admin options \n");
-		TUI.printMessage("4. Show list of all users \n"+"5. Delete user"+"6. Make user admin");
+		TUI.printMessage("4. Show list of all users \n"+"5. Delete user \n"+"6. Make user admin");
 		TUI.printMessage("#######################################");
 	}
 	
@@ -72,7 +72,7 @@ public class IOController {
 		TUI.printMessage("Logged in as: "+username);
 		TUI.printMessage("#######################################");
 		TUI.printMessage("Account management \n");
-		TUI.printMessage("1. Change name \n"+"2. change password \n"+"3. back");
+		TUI.printMessage("1. Change name \n"+"2. Change password \n"+"3. Back");
 		TUI.printMessage("#######################################");
 	}
 	public void printUserList(String[][] userlist) {
@@ -96,7 +96,7 @@ public class IOController {
 		default: throw new UnknownInputException();
 		} } catch (UnknownInputException e) {
 			TUI.printMessage("Couldn't recognize the input");
-			getUserSelection();
+			return getUserSelection();
 		}
 		return output;
 	}
@@ -115,7 +115,7 @@ public class IOController {
 		default: throw new UnknownInputException();
 		} } catch (UnknownInputException e) {
 			TUI.printMessage("Couldn't recognize the input");
-			getUserMenu();
+			return getUserMenu();
 		} 
 		return output;
 	}
@@ -134,7 +134,7 @@ public class IOController {
 		default: throw new UnknownInputException();
 		} } catch (UnknownInputException e) {
 			TUI.printMessage("Couldn't recognize the input");
-			getUserMenu();
+			return getUserMenu();
 		} 
 		return output;
 	}
@@ -159,7 +159,7 @@ public class IOController {
 		default: throw new UnknownInputException();
 		} } catch (UnknownInputException e) {
 			TUI.printMessage("Couldn't recognize the input");
-			getUserMenu();
+			return getUserMenu();
 		} 
 		return output;
 	}
@@ -178,7 +178,7 @@ public class IOController {
 		default: throw new UnknownInputException();
 		} } catch (UnknownInputException e) {
 			TUI.printMessage("Couldn't recognize the input");
-			getUserMenu();
+			return getUserMenu();
 		} 
 		return output;
 	}
