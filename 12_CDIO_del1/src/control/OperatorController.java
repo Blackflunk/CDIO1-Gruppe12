@@ -162,7 +162,7 @@ public class OperatorController {
 			if (IO.getUserSelection()==false)
 				return false;
 			else
-				validateLogIn();
+				return validateLogIn();
 		}
 		return true;
 	}
