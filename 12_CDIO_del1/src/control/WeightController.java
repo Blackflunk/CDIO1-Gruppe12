@@ -20,7 +20,7 @@ public class WeightController implements IWeightLogic {
 			int weight=IO.getIntInput();
 
 		int result = WL.useWeight(weight, tara);
-		IO.printMessage("The weight shows: "+result);
+		IO.printMessage("The Netto-weight is: "+result);
 		IO.printMessage("Run weight again? Y/N");
 		if (IO.getUserSelection()==false)
 			run=false;
