@@ -62,6 +62,9 @@ public class Datalogic implements IOperatorDTO,Comparable<OperatorDTO>{
 				else if(Cnum == 2) {
 					o.setPassword(Change);
 				}
+				else if(Cnum == 4) {
+					o.setIni(getIni(Change));
+				}
 			}
 		}
 

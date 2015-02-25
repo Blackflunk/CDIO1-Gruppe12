@@ -67,6 +67,7 @@ public class OperatorController {
 			String input = IO.getStringInput();
 			DC.updateUser(cpr, 1, input);
 			username = DC.convertToName(cpr);
+			DC.updateUser(cpr, 4, username);
 		} break;
 		case 2: IO.printMessage("Change password \n"+"#######################################");
 		if (validateLogIn()) {
