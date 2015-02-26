@@ -140,6 +140,14 @@ public class DataController implements IDatalogic{
 		createUser("Preben Poulsen", "000000-1234", true);
 		createUser("Bent T. Ulrichsen", "666666-7777", false);
 		createUser("Poul Hansen", "010101-0101", false);
+		createUser("Preben Thompson", "200490-9081", false);
+		createUser("Bo Praem Cream", "090502-6758", true);
+		createUser("Peter Dagger", "090807-0605", false);
+		createUser("Tobias Rasmussen", "675849-3924", false);
+		createUser("Mads Lykke", "090909-0909", false);
+		createUser("James Harding", "222000-2200", false);
+		createUser("Bruno", "989898-7878", false);
+		createUser("Ulla Ricksen", "567898-1234", false);
 		// for overskuelighed og for at lettere kunne se alle data om personer skrives de til fil ved opstart
 		writeNewFile();
 	}

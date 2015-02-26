@@ -160,7 +160,6 @@ public class OperatorController {
 		case 7:	
 			IO.printMessage("#######################################");
 			IO.printMessage("The database was printed to the file 'userdatabase.txt' ");
-			IO.printMessage("#######################################");
 			DC.writeNewFile();
 			break;
 		}
